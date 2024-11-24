@@ -9,5 +9,6 @@
 </head>
 <body>
     @yield('content')
+    @include('partials.nofitications')
 </body>
 </html>
