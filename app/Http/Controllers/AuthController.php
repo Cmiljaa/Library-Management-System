@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -20,9 +21,14 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $validatedData = $request->validated();
+        if(Auth::attempt($request->validated()))
+        {
+            $request->session()->regenerate();
 
-        return back()->with('success', 'LOGIN SUCCESS');
+            return redirect(route('dashboard'))->with('success', 'You have successfully logged in');
+        }
+
+        return back()->with('error', 'Invalid credentials');
     }
 
     public function register(RegisterRequest $request)
