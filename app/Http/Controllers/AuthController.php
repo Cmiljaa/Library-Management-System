@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,9 +34,11 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $validatedData = $request->validated();
+        User::create($request->validated());
 
-        return back()->with('success', 'REGISTER SUCCESS');
+        $request->session()->regenerate();
+
+        return redirect(route('dashboard'))->with('success', 'Account created successfully');
     }
 
 }

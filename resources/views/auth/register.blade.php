@@ -35,7 +35,7 @@
 
             <div>
                 <x-label for="password_confirmation">Confirm Password</x-label>
-                <x-input name="password_confirmation" id="password_confirmation" type="password_confirmation" required />
+                <x-input name="password_confirmation" id="password_confirmation" type="password" required />
             </div>
 
             <div>
