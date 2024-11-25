@@ -1,18 +1,19 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
     return redirect(route('auth.login'));
 });
 
-Route::prefix('/auth')->group(function(){
+Route::prefix('/auth')->controller(AuthController::class)->group(function(){
 
-    Route::get('/login', function(){
-        return view('login');
-    })->name('auth.login');
+    Route::get('/login', 'loginForm')->name('auth.login');
+
+    Route::post('/login', 'login')->name('login');
     
-    Route::get('/register', function(){
-        return view('register');
-    })->name('auth.register');
+    Route::get('/register', 'registerForm')->name('auth.register');
+
+    Route::post('/register', 'register')->name('register');
 });
