@@ -4,7 +4,8 @@
     <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-bold text-center text-gray-700">Login</h2>
 
-        <form class="mt-6 space-y-4" action="/login" method="POST">
+        <form class="mt-6 space-y-4" action="{{ route('login') }}" method="POST">
+            @csrf
             <div>
                 <x-label for="email">Email Address</x-label>
                 <x-input name="email" id="email" type="email" placeholder="johndoe@gmail.com" required />

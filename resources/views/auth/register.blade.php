@@ -4,7 +4,8 @@
     <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-bold text-center text-gray-700">Sign Up</h2>
 
-        <form class="mt-6 space-y-4" action="/login" method="POST">
+        <form class="mt-6 space-y-4" action="{{ route('register') }}" method="POST">
+            @csrf
             <div class="flex flex-col md:flex-row justify-between gap-4">
                 <div class="w-full md:w-1/2">
                     <x-label for="first_name">First name</x-label>
@@ -33,8 +34,8 @@
             </div>
 
             <div>
-                <x-label for="confirm_password">Confirm Password</x-label>
-                <x-input name="confirm_password" id="confirm_password" type="confirm_password" required />
+                <x-label for="password_confirmation">Confirm Password</x-label>
+                <x-input name="password_confirmation" id="password_confirmation" type="password_confirmation" required />
             </div>
 
             <div>
