@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -16,4 +17,10 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function(){
     Route::get('/register', 'registerForm')->name('auth.register');
 
     Route::post('/register', 'register')->name('register');
+
+Route::prefix('auth/google')->controller(GoogleController::class)->group(function(){
+
+    Route::get('', 'redirectToGoogle')->name('auth.google');
+
+    Route::get('callback', 'handleGoogleCallback');
 });
