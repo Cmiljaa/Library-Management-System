@@ -48,7 +48,7 @@
         <div class="mt-4 text-center">
             <p class="text-sm text-gray-600">or continue with</p>
             <a 
-                href="/auth/google" 
+                href="{{ route('auth.google') }}" 
                 class="mt-2 inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 shadow-sm">
                 <img src="https://www.google.com/favicon.ico" alt="Google Icon" class="w-5 h-5 mr-2">
                 Sign in with Google
