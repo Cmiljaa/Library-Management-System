@@ -17,6 +17,11 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function(){
     Route::get('/register', 'registerForm')->name('auth.register');
 
     Route::post('/register', 'register')->name('register');
+});
+
+Route::middleware('auth')->get('/dashboard', function(){
+    return view('dashboard');
+})->name('dashboard');
 
 Route::prefix('auth/google')->controller(GoogleController::class)->group(function(){
 
