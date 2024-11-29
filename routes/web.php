@@ -19,12 +19,12 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function(){
     Route::post('/register', 'register')->name('register');
 });
 
-Route::middleware('auth')->get('/dashboard', function(){
+Route::middleware('role:member')->get('/dashboard', function(){
     return view('dashboard');
 })->name('dashboard');
 
 Route::prefix('auth/google')->controller(GoogleController::class)->group(function(){
-
+    
     Route::get('', 'redirectToGoogle')->name('auth.google');
 
     Route::get('callback', 'handleGoogleCallback');
