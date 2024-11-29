@@ -29,7 +29,8 @@
                     <x-nav-item href="#profile">
                         Profile
                     </x-nav-item>
-                    <form action="{{route('dashboard')}}" class="mt-3.5 text-xl text-blue-700 font-medium lg:hover:bg-transparent  focus:outline-none focus:ring-2 hover:bg-blue-100 rounded-md">
+                    <form action="{{ route('logout') }}" method="POST" class="mt-3.5 text-xl text-blue-700 font-medium lg:hover:bg-transparent  focus:outline-none focus:ring-2 hover:bg-blue-100 rounded-md">
+                        @csrf
                         <button>
                             <a class="block text-2xl text-blue-700 font-medium lg:hover:bg-transparent focus:outline-none focus:ring-2 hover:text-blue-500 px-3 py-2 duration-200">
                                 Logout

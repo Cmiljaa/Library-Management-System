@@ -29,3 +29,6 @@ Route::prefix('auth/google')->controller(GoogleController::class)->group(functio
 
     Route::get('callback', 'handleGoogleCallback');
 });
+
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')
+->name('logout');
