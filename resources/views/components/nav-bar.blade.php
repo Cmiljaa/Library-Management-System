@@ -21,7 +21,7 @@
 
             <div :class="{ 'hidden': !open, 'block': open }" class="w-full lg:flex lg:w-auto mt-4 lg:mt-0 text-base" id="navbar-default">
                 <ul class="px-3 font-medium flex flex-col lg:flex-row lg:items-center lg:space-x-8 bg-gray-50 lg:bg-transparent rounded-lg border lg:border-0 border-gray-300 shadow-sm lg:shadow-none">
-                    @foreach ($links as $href => $label)
+                    @foreach ($links as $label => $href)
                         <x-nav-item href="{{ $href }}">
                             {{ $label }}
                         </x-nav-item>
