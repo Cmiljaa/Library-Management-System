@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="bg-blue-100 flex items-center justify-center min-h-screen">
+<div class="bg-blue-100 flex items-center justify-center min-h-screen mb-4">
     <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-bold text-center text-gray-700">Sign Up</h2>
 
