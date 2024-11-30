@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'english',
-    'french',
-    'german',
-    'italian',
-    'russian',
-    'serbian',
-    'spanish'
+    'english' => 'English',
+    'french' => 'French',
+    'german' => 'German',
+    'italian' => 'Italian',
+    'russian' => 'Russian',
+    'serbian' => 'Serbian',
+    'spanish' => 'Spanish',
 ];
