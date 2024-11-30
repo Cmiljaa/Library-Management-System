@@ -30,6 +30,7 @@ class GoogleController extends Controller
                     'last_name' => 'Unknown',
                     'email' => $user->email,
                     'google_id'=> $user->id,
+                    'role' => 'member'
                 ]);
 
                 Auth::login($newUser);
