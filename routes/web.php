@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,7 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function(){
     Route::post('/register', 'register')->name('register');
 });
 
-Route::middleware('role:member')->get('/dashboard', function(){
-    return view('dashboard');
-})->name('dashboard');
+Route::resource('books', BookController::class);
 
 Route::prefix('auth/google')->controller(GoogleController::class)->group(function(){
     

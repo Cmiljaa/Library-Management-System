@@ -26,7 +26,7 @@ class AuthController extends Controller
         {
             $request->session()->regenerate();
 
-            return redirect(route('dashboard'))->with('success', 'You have successfully logged in');
+            return redirect(route('books.index'))->with('success', 'You have successfully logged in');
         }
 
         return back()->with('error', 'Invalid credentials');
@@ -38,7 +38,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect(route('dashboard'))->with('success', 'Account created successfully');
+        return redirect(route('books.index'))->with('success', 'Account created successfully');
     }
 
     public function logout(Request $request)

@@ -23,7 +23,7 @@ class GoogleController extends Controller
 
             if ($findUser) {
                 Auth::login($findUser);
-                return redirect(route('dashboard'))->with('success', 'You have successfully logged in');
+                return redirect(route('books.index'))->with('success', 'You have successfully logged in');
             } else {
                 $newUser = User::factory()->create([
                     'first_name' => $user->name,
@@ -34,7 +34,7 @@ class GoogleController extends Controller
                 ]);
 
                 Auth::login($newUser);
-                return redirect(route('dashboard'))->with('success', 'Account created successfully');
+                return redirect(route('books.index'))->with('success', 'Account created successfully');
             }
         } catch (Exception $e) {
             return redirect(route('login'))->with('error', 'An error occurred');
