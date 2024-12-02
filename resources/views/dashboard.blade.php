@@ -4,24 +4,26 @@
 <x-nav-bar :links="['Home' => 'home', 'My Books' => 'books', 'Notifications' => 'notifications']" />
 
 <div class="container mx-auto p-4 mt-2">
-    <div class="flex items-center justify-center mb-4">
-        <div class="w-full max-w-md">
-            <x-input name="search" id="search" placeholder="Search..." class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700" />
+    <form action="{{ route('books.index') }}" method="GET">
+        <div class="flex items-center justify-center mb-4">
+            <div class="w-full max-w-md">
+                <x-input name="search" id="search" placeholder="Search..." class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700" />
+            </div>
         </div>
-    </div>
-    <div class="flex flex-wrap items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
-        <div class="w-full max-w-md md:w-auto">
-            <x-select name="genre" :array="config('book.genres')" />
+        <div class="flex flex-wrap items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+            <div class="w-full max-w-md md:w-auto">
+                <x-select name="genre" :array="config('book.genres')" />
+            </div>
+            <div class="w-full max-w-md md:w-auto">
+                <x-select name="language" :array="config('book.languages')" />
+            </div>
+            <div class="w-full max-w-md md:w-auto">
+                <x-button>
+                    Submit
+                </x-button>
+            </div>
         </div>
-        <div class="w-full max-w-md md:w-auto">
-            <x-select name="language" :array="config('book.languages')" />
-        </div>
-        <div class="w-full max-w-md md:w-auto">
-            <x-button>
-                Submit
-            </x-button>
-        </div>
-    </div>
+    </form>
 </div>
 
 <div class="container mx-auto p-4 space-y-6">
@@ -40,11 +42,15 @@
 
                 <div class="flex space-x-2">
                     <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm">
-                        {{ Str::title(str_replace('_', ' ', $book->genre)) }}
+                        <a href="?genre={{ $book->genre }}">
+                            {{ Str::title(str_replace('_', ' ', $book->genre)) }}
+                        </a>
                     </button>
                     
                     <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm">
-                        {{ Str::title( $book->language) }}
+                        <a href="?language={{ $book->language }}">
+                            {{ Str::title( $book->language) }}
+                        </a>
                     </button>                                 
                 </div>
             </div>

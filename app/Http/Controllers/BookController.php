@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::latest()->paginate(10);
+        $attributes = ['language', 'genre'];
+
+        $books = Book::query()->FilterByAttribute($request, $attributes)->latest()->paginate(10);
 
         return view('dashboard', ['books' => $books]);
     }
