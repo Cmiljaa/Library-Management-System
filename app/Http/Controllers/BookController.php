@@ -12,7 +12,7 @@ class BookController extends Controller
     {
         $attributes = ['language', 'genre'];
 
-        $books = Book::query()->FilterByAttribute($request, $attributes)->latest()->paginate(10);
+        $books = Book::query()->FilterBySearch($request)->FilterByAttribute($request, $attributes)->latest()->paginate(10);
 
         return view('dashboard', ['books' => $books]);
     }

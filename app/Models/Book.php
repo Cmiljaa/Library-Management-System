@@ -21,5 +21,15 @@ class Book extends Model
             }
         }
     }
-    
+
+    public function scopeFilterBySearch($query, Request $request)
+    {
+        if($request->filled('search'))
+        {
+            $query->where('title', 'like', '%' . $request->search . '%')
+            ->orWhere('description', 'like', '%' . $request->search . '%')
+            ->orWhere('author', 'like', '%' . $request->search . '%');;
+        }
+    }
+
 }
