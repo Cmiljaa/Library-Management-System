@@ -18,10 +18,10 @@ class BookFactory extends Factory
     {
         return [
             'title' => fake()->sentence(),
-            'genre' => fake()->randomElement(config('book.genres')),
+            'genre' => fake()->randomElement(array_keys(config('book.genres'))),
             'author' => fake()->name(),
             'description' => fake()->paragraph(),
-            'language' => fake()->randomElement(config('book.languages'))
+            'language' => fake()->randomElement(array_keys(config('book.languages')))
         ];
     }
 }

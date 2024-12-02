@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->count(10)->create();
 
-        Book::factory()->count(30)->create();
+        Book::factory()->count(100)->create();
     }
 }
