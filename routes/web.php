@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -22,6 +23,8 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function(){
 
 Route::resource('books', BookController::class);
 
+Route::resource('user', UserController::class);
+
 Route::prefix('auth/google')->controller(GoogleController::class)->group(function(){
     
     Route::get('', 'redirectToGoogle')->name('auth.google');
@@ -31,3 +34,5 @@ Route::prefix('auth/google')->controller(GoogleController::class)->group(functio
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')
 ->name('logout');
+
+Route::get('user/{user}', [UserController::class, 'show'])->middleware('auth')->name('user.show');
