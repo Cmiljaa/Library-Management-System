@@ -27,7 +27,7 @@
                         </x-nav-item>
                     @endforeach
                     @auth
-                        <x-nav-item href="#profile">
+                        <x-nav-item href="{{ route('user.show', Auth::user()) }}">
                             Profile
                         </x-nav-item>
                         <form action="{{ route('logout') }}" method="POST" class=" xl:-mt-2 text-xl text-blue-700 font-medium xl:hover:bg-transparent  focus:outline-none focus:ring-2 hover:bg-blue-100 rounded-md">
