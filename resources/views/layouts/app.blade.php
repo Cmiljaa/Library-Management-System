@@ -8,7 +8,7 @@
     <link rel="icon" href="{{asset('img/books-stack-of-three.svg')}}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-blue-100">
+<body class="bg-blue-100 min-h-screen">
     @auth
         @switch(Auth::user()->role)
             @case('librarian')
@@ -23,7 +23,7 @@
     @else
         <x-nav-bar :links="['Login' => route('auth.login'), 'Sign up'=> route('auth.register')]" />
     @endauth
-    <div class="min-h-screen">
+    <div class="">
         @yield('content')
     </div>
     @include('partials.footer')

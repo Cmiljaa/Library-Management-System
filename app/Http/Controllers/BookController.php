@@ -27,9 +27,9 @@ class BookController extends Controller
         //
     }
 
-    public function show(string $id)
+    public function show(Book $book)
     {
-        //
+        return view('books.show', ['book' => $book]);
     }
 
     public function edit(string $id)
