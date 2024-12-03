@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-<x-nav-bar :links="['Home' => 'home', 'My Books' => 'books', 'Notifications' => 'notifications']" />
-
 <div class="container mx-auto p-4 mt-2">
     <form action="{{ route('books.index') }}" method="GET">
         <div class="flex items-center justify-center mb-4">
@@ -29,25 +27,25 @@
 <div class="container mx-auto p-4 space-y-6">
     @forelse ($books as $book)
         <div class="bg-white shadow-md rounded-lg p-4 w-full max-w-2xl mx-auto">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2 tracking-wide">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2 tracking-wide text-center sm:text-left">
                 {{ $book->title }}
             </h2>
 
-            <div class="flex justify-between items-center mb-4 mt-5">
-                <div>
-                    <p class="text-md text-gray-600 mb-4">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-4 mt-5 sm:space-x-4">
+                <div class="w-full sm:w-1/2 mb-4 sm:mb-0">
+                    <p class="text-md text-gray-600">
                         <strong class="text-gray-800">Author:</strong> {{ $book->author }}
                     </p>
                 </div>
 
-                <div class="flex space-x-2">
-                    <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm">
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
+                    <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm w-full sm:w-auto">
                         <a href="?genre={{ $book->genre }}">
                             {{ Str::title(str_replace('_', ' ', $book->genre)) }}
                         </a>
                     </button>
                     
-                    <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm">
+                    <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm w-full sm:w-auto">
                         <a href="?language={{ $book->language }}">
                             {{ Str::title( $book->language) }}
                         </a>
@@ -55,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="mt-4">
+            <div class="mt-4 text-center sm:text-left">
                 <a href="/books/{{ $book->id }}" class="inline-block">
                     <x-button>
                         Show
@@ -75,3 +73,5 @@
         </div>
     @endif
 </div>
+
+@endsection

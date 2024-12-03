@@ -2,7 +2,7 @@
     <div class="fixed top-10 right-0 mr-6 w-full sm:w-1/3 z-50 space-y-4">
         <div 
             x-data="{ show: true }" 
-            x-init="setTimeout(() => show = false, 5000)" 
+            x-init="setTimeout(() => show = false, 3000)" 
             x-show="show" 
             x-transition:leave="transition ease-in duration-1000 transform"
             x-transition:leave-start="opacity-100"

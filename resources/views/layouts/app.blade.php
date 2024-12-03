@@ -8,8 +8,22 @@
     <link rel="icon" href="{{asset('img/books-stack-of-three.svg')}}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-blue-100 min-h-screen flex flex-col">
-    <div class="flex-grow">
+<body class="bg-blue-100">
+    @auth
+        @switch(Auth::user()->role)
+            @case('librarian')
+                <x-nav-bar :links="['LIBRARIAN' => 'home']" />
+                @break
+            @case('admin')
+                <x-nav-bar :links="['ADMIN' => 'home']" />
+                @break
+            @default
+                <x-nav-bar :links="['Home' => 'home', 'My Books' => 'books', 'Notifications' => 'notifications']" />
+        @endswitch
+    @else
+        <x-nav-bar :links="['Login' => route('auth.login'), 'Sign up'=> route('auth.register')]" />
+    @endauth
+    <div class="min-h-screen">
         @yield('content')
     </div>
     @include('partials.footer')

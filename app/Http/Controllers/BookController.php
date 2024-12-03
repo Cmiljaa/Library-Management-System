@@ -14,7 +14,7 @@ class BookController extends Controller
 
         $books = Book::query()->FilterBySearch($request)->FilterByAttribute($request, $attributes)->latest()->paginate(10);
 
-        return view('dashboard', ['books' => $books]);
+        return view('books.index', ['books' => $books]);
     }
 
     public function create()

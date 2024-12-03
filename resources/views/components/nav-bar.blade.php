@@ -10,7 +10,7 @@
     
         @if (!empty($links))
             <button @click="open = !open" type="button" 
-                class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-600 rounded-lg lg:hidden 
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-600 rounded-xl xl:hidden 
                        hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-300" 
                 aria-controls="navbar-default" :aria-expanded="open">
                 <span class="sr-only">Open main menu</span>
@@ -19,24 +19,26 @@
                 </svg>
             </button>
 
-            <div :class="{ 'hidden': !open, 'block': open }" class="w-full lg:flex lg:w-auto mt-4 lg:mt-0 text-base" id="navbar-default">
-                <ul class="px-3 font-medium flex flex-col lg:flex-row lg:items-center lg:space-x-8 bg-gray-50 lg:bg-transparent rounded-lg border lg:border-0 border-gray-300 shadow-sm lg:shadow-none">
+            <div :class="{ 'hidden': !open, 'block': open }" class="w-full xl:flex xl:w-auto mt-4 xl:mt-0 text-base" id="navbar-default">
+                <ul class="pb-5 xl:pb-0 px-3 font-medium flex flex-col xl:flex-row xl:items-center xl:space-x-8 bg-gray-50 xl:bg-transparent rounded-xl border xl:border-0 border-gray-300 shadow-sm xl:shadow-none">
                     @foreach ($links as $label => $href)
                         <x-nav-item href="{{ $href }}">
                             {{ $label }}
                         </x-nav-item>
                     @endforeach
-                    <x-nav-item href="#profile">
-                        Profile
-                    </x-nav-item>
-                    <form action="{{ route('logout') }}" method="POST" class="mt-3.5 text-xl text-blue-700 font-medium lg:hover:bg-transparent  focus:outline-none focus:ring-2 hover:bg-blue-100 rounded-md">
-                        @csrf
-                        <button>
-                            <a class="block text-2xl text-blue-700 font-medium lg:hover:bg-transparent focus:outline-none focus:ring-2 hover:text-blue-500 px-3 py-2 duration-200">
-                                Logout
-                            </a>
-                        </button>
-                    </form>
+                    @auth
+                        <x-nav-item href="#profile">
+                            Profile
+                        </x-nav-item>
+                        <form action="{{ route('logout') }}" method="POST" class=" xl:-mt-2 text-xl text-blue-700 font-medium xl:hover:bg-transparent  focus:outline-none focus:ring-2 hover:bg-blue-100 rounded-md">
+                            @csrf
+                            <button>
+                                <a class="block text-2xl text-blue-700 font-medium xl:hover:bg-transparent focus:outline-none focus:ring-2 hover:text-blue-500 px-3 py-2 duration-200">
+                                    Logout
+                                </a>
+                            </button>
+                        </form>
+                    @endauth
                 </ul>
             </div>
         @endif
