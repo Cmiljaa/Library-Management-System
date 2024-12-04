@@ -18,12 +18,12 @@
                 <x-nav-bar :links="['ADMIN' => 'home']" />
                 @break
             @default
-                <x-nav-bar :links="['Home' => 'home', 'My Books' => 'books', 'Notifications' => 'notifications']" />
+                <x-nav-bar :links="['Home' => route('books.index'), 'My Books' => 'books', 'Notifications' => 'notifications']" />
         @endswitch
     @else
         <x-nav-bar :links="['Login' => route('auth.login'), 'Sign up'=> route('auth.register')]" />
     @endauth
-    <div class="">
+    <div>
         @yield('content')
     </div>
     @include('partials.footer')

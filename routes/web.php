@@ -7,30 +7,36 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
-    return redirect(route('auth.login'));
+    return redirect(route('books.index'));
 });
 
-Route::prefix('/auth')->controller(AuthController::class)->group(function(){
 
-    Route::get('/login', 'loginForm')->name('auth.login');
+Route::middleware('guest')->prefix('/auth')->group(function(){
 
-    Route::post('/login', 'login')->name('login');
+    Route::controller(AuthController::class)->group(function(){
+
+        Route::get('/login', 'loginForm')->name('auth.login');
     
-    Route::get('/register', 'registerForm')->name('auth.register');
-
-    Route::post('/register', 'register')->name('register');
-});
-
-Route::resource('books', BookController::class);
-
-Route::resource('user', UserController::class);
-
-Route::prefix('auth/google')->controller(GoogleController::class)->group(function(){
+        Route::post('/login', 'login')->name('login');
+        
+        Route::get('/register', 'registerForm')->name('auth.register');
     
-    Route::get('', 'redirectToGoogle')->name('auth.google');
+        Route::post('/register', 'register')->name('register');
+    });
 
-    Route::get('callback', 'handleGoogleCallback');
+    Route::prefix('/google')->controller(GoogleController::class)->group(function(){
+    
+        Route::get('', 'redirectToGoogle')->name('auth.google');
+    
+        Route::get('callback', 'handleGoogleCallback');
+    });
 });
+
+Route::resource('books', BookController::class)
+->only(['index', 'show']);
+
+Route::resource('user', UserController::class)
+->only(['show']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')
 ->name('logout');
