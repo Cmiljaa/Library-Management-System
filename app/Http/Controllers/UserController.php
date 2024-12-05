@@ -2,55 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(User $user)
     {
-        if((Auth::user()->role === 'admin' || Auth::user()->role === 'librarian') || Auth::user()->id === $user->id)
-        {
-            return view('user.show', ['user' => $user]);
-        }
+        Gate::authorize('allowed', $user);
 
-        return redirect(route('books.index'))->with('error', 'You are not authorized');
+        return view('user.show', ['user' => $user]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        if(Gate::allows('allowed', $user) && $user->google_id === null)
+        {
+            return view('user.edit', ['user' => $user]);
+        }
+        else
+        {
+            return redirect(route('user.show', ['user' => $user]));
+        }
     }
 
     /**
