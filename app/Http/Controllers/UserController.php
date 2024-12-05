@@ -43,12 +43,17 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(RegisterRequest $request, User $user)
     {
-        //
+        if(Gate::allows('allowed', $user) && $user->google_id === null)
+        {
+            $user->update($request->validated());
+            return view('user.show', ['user' => $user])->with('success', 'Profile updated successfully');
+        }
+        else
+        {
+            return redirect(route('user.show', ['user' => $user]));
+        }
     }
 
     /**
