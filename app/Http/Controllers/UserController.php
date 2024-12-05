@@ -56,11 +56,14 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        Gate::authorize('allowed', $user);
+
+        request()->session()->invalidate();
+
+        $user->delete();
+
+        return redirect(route('books.index'))->with('success', 'Profile deleted successfully');
     }
 }
