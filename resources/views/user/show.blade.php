@@ -25,13 +25,15 @@
             </div>
         </div>
         <div class="flex space-x-4 mt-6">
-            <a href="">
-                <x-button>
-                    Update Profile
-                </x-button>
-            </a>
+            @if ($user->google_id === null)
+                <a href="{{ route('user.edit', $user) }}">
+                    <x-button>
+                        Update Profile
+                    </x-button>
+                </a>
+            @endif
 
-            <form action="" method="POST">
+            <form action="{{ route('user.destroy', $user) }}" method="POST"  onsubmit="return confirm('Are you sure you want to delete profile?')">
                 @csrf
                 @method('DELETE')
                 <x-button class="text-white  rounded-lg !bg-red-600 hover:!bg-transparent hover:!text-red-600 hover:!border-red-600 focus:outline-none focus:ring-2 focus:!ring-red-600">

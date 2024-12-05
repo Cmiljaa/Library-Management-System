@@ -35,10 +35,8 @@ Route::middleware('guest')->prefix('/auth')->group(function(){
 Route::resource('books', BookController::class)
 ->only(['index', 'show']);
 
-Route::resource('user', UserController::class)
-->only(['show']);
+Route::resource('user', UserController::class)->middleware('auth')
+->only(['show', 'edit', 'update', 'destroy']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')
 ->name('logout');
-
-Route::get('user/{user}', [UserController::class, 'show'])->middleware('auth')->name('user.show');
