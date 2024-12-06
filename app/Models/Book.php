@@ -4,12 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
 class Book extends Model
 {
     /** @use HasFactory<\Database\Factories\BookFactory> */
     use HasFactory;
+
+    public function reviews() :HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
     
     public function scopeFilterByAttribute($query, Request $request, array $attributes)
     {
