@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
@@ -29,7 +30,8 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        return view('books.show', ['book' => $book]);
+        $reviews = Review::where('book_id', $book->id)->with('user')->get();
+        return view('books.show', ['book' => $book, 'reviews' => $reviews]);
     }
 
     public function edit(string $id)
