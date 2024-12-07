@@ -19,12 +19,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        User::factory()->count(10)->create();
+        $users = User::factory()->count(30)->create();
 
-        Book::factory()->count(100)->create()->each(function($book){
-            Review::factory()->count(rand(1, 4))->create([
-                'book_id' => $book->id
-            ]);
+        Book::factory()->count(100)->create()->each(function($book) use ($users) {
+            $shuffledUsers = $users->shuffle()->take(rand(1, 4));
+
+            $shuffledUsers->each(function ($user) use ($book) {
+                Review::factory()->create([
+                    'book_id' => $book->id,
+                    'user_id' => $user->id
+                ]);
+            });
         });
     }
 }

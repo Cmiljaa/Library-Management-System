@@ -17,7 +17,7 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(),
+            'title' => fake()->realTextBetween(30, 100),
             'genre' => fake()->randomElement(array_keys(config('book.genres'))),
             'author' => fake()->name(),
             'description' => fake()->paragraph(),

@@ -19,6 +19,7 @@ class ReviewFactory extends Factory
         return [
             'rating' => fake()->numberBetween(1, 5),
             'description' => fake()->paragraph(3),
+            'created_at' => fake()->date()
         ];
     }
 }
