@@ -27,7 +27,7 @@ class GoogleController extends Controller
             } else {
                 $newUser = User::factory()->create([
                     'first_name' => $user->name,
-                    'last_name' => 'Unknown',
+                    'last_name' => '',
                     'email' => $user->email,
                     'google_id'=> $user->id,
                     'role' => 'member'
