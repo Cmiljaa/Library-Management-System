@@ -35,14 +35,14 @@
         </div>
     </div>
 
-    <div class="mt-10 flex justify-between items-center">
+    <div class="mt-10 flex flex-col sm:flex-row sm:justify-between items-center">
         <a href="{{ route('books.index') }}">
             <x-button>
                 Back to Book List
             </x-button>
         </a>
         @if(!$reviews->isEmpty())
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 mt-4 sm:mt-0">
                 <span class="flex text-2xl">
                     <x-star :number="$reviews->avg('rating')" />
                 </span>
@@ -50,6 +50,7 @@
             </div>
         @endif
     </div>
+    
 </div>
 
 
@@ -57,14 +58,15 @@
 <div class="container mx-auto mb-16 text-gray-900 rounded-lg text-center sm:text-left">
     @forelse ($reviews as $review)
         <div class="review-container bg-white p-4 rounded-lg shadow-md mb-4">
-            <div class="flex items-center mb-3 space-x-2">
-                <div class="mr-2">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 mb-3 sm:mb-3">
+                <div class="mr-2 text-center sm:text-left">
                     <span class="font-semibold">{{ $review->user->first_name }} {{ $review->user->last_name }}</span>
                 </div>
-                <span class="flex text-xl">
+                <span class="flex text-xl justify-center sm:justify-start">
                     <x-star :number="$review->rating" />
                 </span>
             </div>
+            
             <div class="review-description text-gray-700">
                 <p>
                     {{ $review->description }}
