@@ -13,7 +13,7 @@ class BookController extends Controller
     {
         $attributes = ['language', 'genre'];
 
-        $books = Book::query()->FilterBySearch($request)->FilterByAttribute($request, $attributes)->latest()->paginate(10);
+        $books = Book::query()->withAvg('reviews', 'rating')->FilterBySearch($request)->FilterByAttribute($request, $attributes)->latest()->paginate(10);
 
         return view('books.index', ['books' => $books]);
     }

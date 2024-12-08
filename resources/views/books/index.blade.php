@@ -53,12 +53,23 @@
                 </div>
             </div>
 
-            <div class="mt-4 text-center sm:text-left">
-                <a href="/books/{{ $book->id }}" class="inline-block">
-                    <x-button>
-                        Show
-                    </x-button>
-                </a>
+            <div class="mt-4 flex justify-between items-center sm:flex-row flex-col text-center sm:text-left">
+                <div>
+                    <a href="/books/{{ $book->id }}" class="inline-block">
+                        <x-button>
+                            Show
+                        </x-button>
+                    </a>
+                </div>
+            
+                <div class="flex items-center gap-2 mt-4 sm:mt-0">
+                    <span class="flex text-2xl">
+                        <x-star :number="$book->reviews_avg_rating" />
+                    </span>
+                    <span class="text-gray-600 font-semibold text-base">
+                        {{ number_format($book->reviews_avg_rating, 1) }} / 5
+                    </span>
+                </div>
             </div>
         </div>
     @empty
