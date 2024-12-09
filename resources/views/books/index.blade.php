@@ -66,7 +66,7 @@
                     <span class="flex text-2xl">
                         <x-star :number="$book->reviews_avg_rating" />
                     </span>
-                    <span class="text-gray-600 font-semibold text-base">
+                    <span class="text-black font-semibold text-base">
                         {{ number_format($book->reviews_avg_rating, 1) }} / 5
                     </span>
                 </div>
