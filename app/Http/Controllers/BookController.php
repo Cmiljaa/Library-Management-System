@@ -28,8 +28,7 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        $reviews = Review::where('book_id', $book->id)->with('user')->get();
-        return view('books.show', ['book' => $book, 'reviews' => $reviews]);
+        return view('books.show', ['book' => $book, 'reviews' => ReviewService::getBookReviews($book)]);
     }
 
     public function edit(string $id)
