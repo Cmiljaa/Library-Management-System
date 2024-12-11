@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Review;
 use App\Services\BookService;
 use App\Services\ReviewService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 
 class BookController extends Controller
 {

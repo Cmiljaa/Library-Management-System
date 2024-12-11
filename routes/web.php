@@ -37,7 +37,7 @@ Route::resource('books', BookController::class)
 
 Route::middleware('auth')->group(function(){
 
-    Route::resource('user', UserController::class)
+    Route::resource('user', UserController::class)->middleware('can:allowed,user')
     ->only(['show', 'edit', 'update', 'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
