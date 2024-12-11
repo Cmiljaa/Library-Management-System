@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Services\UserService;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -17,27 +23,20 @@ class GoogleController extends Controller
 
     public function handleGoogleCallback()
     {
-        try {
-            $user = Socialite::driver('google')->user();
-            $findUser = User::where('google_id', $user->id)->first();
-
-            if ($findUser) {
-                Auth::login($findUser);
+        try
+        {
+            if($this->userService->handleGoogleCallback())
+            {
                 return redirect(route('books.index'))->with('success', 'You have successfully logged in');
-            } else {
-                $newUser = User::factory()->create([
-                    'first_name' => $user->name,
-                    'last_name' => '',
-                    'email' => $user->email,
-                    'google_id'=> $user->id,
-                    'role' => 'member'
-                ]);
-
-                Auth::login($newUser);
+            }
+            else
+            {
                 return redirect(route('books.index'))->with('success', 'Account created successfully');
             }
-        } catch (Exception $e) {
-            return redirect(route('login'))->with('error', 'An error occurred');
+        }
+        catch (Exception $e)
+        {
+            return redirect()->route('auth.login')->with('error', 'An error occurred during Google authentication. Please try again later.');
         }
     }
 }
