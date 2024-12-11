@@ -58,6 +58,27 @@ class UserService
         }
     }
 
+    public function loginUser(array $credentials): bool
+    {
+        if(Auth::attempt($credentials))
+        {
+            session()->regenerate();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function logoutUser(): void
+    {
+        Auth::logout();
+
+        session()->invalidate();
+
+        session()->regenerateToken();
+    }
+
     public function updateUser(User $user, array $data): void
     {
         $user->update($data);

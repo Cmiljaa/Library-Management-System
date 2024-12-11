@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Services\UserService;
 
 class AuthController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function loginForm()
     {
         return view('auth.login');
@@ -23,10 +28,8 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if(Auth::attempt($request->validated()))
+        if($this->userService->loginUser($request->validated()))
         {
-            $request->session()->regenerate();
-
             return redirect(route('books.index'))->with('success', 'You have successfully logged in');
         }
 
@@ -35,23 +38,14 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::create($request->validated());
-
-        Auth::login($user);
-
-        $request->session()->regenerate();
+        $this->userService->registerUser($request->validated());
 
         return redirect(route('books.index'))->with('success', 'Account created successfully');
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
+        $this->userService->logoutUser();
         return redirect(route('auth.login'))->with('success', 'Logged out successfully');
     }
 
