@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'email' => 'test@example.com',
+            'role' => 'librarian'
         ]);
 
         $users = User::factory()->count(30)->create();

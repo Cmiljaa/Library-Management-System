@@ -43,3 +43,6 @@ Route::middleware('auth')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });
+
+Route::resource('user', UserController::class)->middleware('role:librarian')
+->only(['index']);
