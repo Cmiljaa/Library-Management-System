@@ -95,4 +95,9 @@ class UserService
 
         $user->delete();
     }
+
+    public function getAllMembers()
+    {
+        return User::where('role', 'member')->get();
+    }
 }
