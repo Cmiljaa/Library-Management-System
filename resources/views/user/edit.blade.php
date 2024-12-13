@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="bg-blue-100 flex items-center justify-center min-h-screen">
+<div class="bg-blue-100 flex items-center justify-center my-10">
     <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-bold text-center text-gray-700">Edit Profile</h2>
 
@@ -27,16 +27,6 @@
             <div>
                 <x-label for="phone">Phone</x-label>
                 <x-input name="phone" id="phone" type="phone" placeholder="0123456789" value="{{ $user->phone }}" required />
-            </div>
-
-            <div>
-                <x-label for="password">Password</x-label>
-                <x-input name="password" id="password" type="password" required />
-            </div>
-
-            <div>
-                <x-label for="password_confirmation">Confirm Password</x-label>
-                <x-input name="password_confirmation" id="password_confirmation" type="password" required />
             </div>
 
             <div>

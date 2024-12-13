@@ -25,8 +25,10 @@ class RegisterRequest extends FormRequest
 
         if($this->getMethod() === 'PUT')
         {
-            $rules['email'] = $rules['email']  . Auth::user()->id;
-            $rules['phone'] = $rules['phone']  . Auth::user()->id;
+            $user = $this->route('user');
+            $rules['email'] = $rules['email']  . $user->id;
+            $rules['phone'] = $rules['phone']  . $user->id;
+            $rules['password'] = '';
         }
 
         return $rules;
