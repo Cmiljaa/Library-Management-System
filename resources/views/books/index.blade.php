@@ -62,18 +62,20 @@
                     </a>
                 </div>
             
-                <div class="flex items-center gap-2 mt-4 sm:mt-0">
-                    <span class="flex text-2xl">
-                        <x-star :number="$book->reviews_avg_rating" />
-                    </span>
-                    <span class="text-black font-semibold text-base">
-                        {{ number_format($book->reviews_avg_rating, 1) }} / 5
-                    </span>
-                </div>
+                @if ($book->reviews_avg_rating != 0)
+                    <div class="flex items-center gap-2 mt-4 sm:mt-0">
+                        <span class="flex text-2xl">
+                            <x-star :number="$book->reviews_avg_rating" />
+                        </span>
+                        <span class="text-black font-semibold text-base">
+                            {{ number_format($book->reviews_avg_rating, 1) }} / 5
+                        </span>
+                    </div>
+                @endif
             </div>
         </div>
     @empty
-        <div class="text-center text-black text-xl">
+        <div class="text-center text-black text-xl mb-48">
             No books available at the moment.
         </div>
     @endforelse

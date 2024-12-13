@@ -12,12 +12,17 @@ class UserService
 
     public function createUserFromGoogleData($googleUser): void
     {
+        $nameParts = explode(' ', $googleUser->name);
+
+        $firstName = $nameParts[0];
+
+        $lastName = count($nameParts) > 1 ? $nameParts[1] : '';
         $this->registerUser([
-            'first_name' => $googleUser->name,
-            'last_name'  => '',
-            'email'      => $googleUser->email,
-            'google_id'  => $googleUser->id,
-            'role'       => 'member'
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $googleUser->email,
+            'google_id' => $googleUser->id,
+            'role'=> 'member'
         ], true);
     }
 
