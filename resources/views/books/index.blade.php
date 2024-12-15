@@ -2,6 +2,17 @@
 @section('content')
 
 <div class="container mx-auto p-4 mt-2">
+    @auth
+        @if (Auth::user()->role != 'member')
+            <div class="flex justify-center mb-4">
+                <a href="{{ route('books.create') }}">
+                    <x-button>
+                        Add Book
+                    </x-button>
+                </a>
+            </div>
+        @endif
+    @endauth
     <form action="{{ route('books.index') }}" method="GET">
         <div class="flex items-center justify-center mb-4">
             <div class="w-full max-w-md">

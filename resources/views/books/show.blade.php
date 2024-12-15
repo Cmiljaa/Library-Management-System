@@ -35,12 +35,31 @@
         </div>
     </div>
 
-    <div class="mt-10 flex flex-col sm:flex-row sm:justify-between items-center">
+    <div class="mt-10 flex flex-col sm:flex-row sm:justify-between space-y-4 sm:space-y-0 items-center">
         <a href="{{ route('books.index') }}">
             <x-button>
                 Back to Book List
             </x-button>
         </a>
+
+        @auth
+            @if (Auth::user()->role != 'member')
+                <a href="{{ route('books.edit', $book) }}">
+                    <x-button>
+                        Edit Book
+                    </x-button>
+                </a>
+
+                <form method="POST" action="{{ route('books.destroy', $book) }}" class="inline-block">
+                    @method('DELETE')
+                    @csrf
+                    <x-button class="text-white  rounded-lg !bg-red-600 hover:!bg-transparent hover:!text-red-600 hover:!border-red-600 focus:outline-none focus:ring-2 focus:!ring-red-600">
+                        Delete Book
+                    </x-button>
+                </form>
+            @endif
+        @endauth
+        
         @if(!$reviews->isEmpty())
             <div class="flex items-center gap-2 mt-4 sm:mt-0">
                 <span class="flex text-2xl">

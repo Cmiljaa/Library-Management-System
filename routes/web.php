@@ -37,15 +37,17 @@ Route::resource('books', BookController::class)
 
 Route::middleware('auth')->group(function(){
 
+    Route::middleware('role:librarian,admin')->group(function(){
+        Route::resource('users', UserController::class)
+        ->only(['index']);
+    
+        Route::resource('books', BookController::class)
+        ->only(['create', 'store', 'edit', 'update', 'destroy']);
+    });
+
     Route::resource('users', UserController::class)->middleware('can:allowed,user')
     ->only(['show', 'edit', 'update', 'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-});
-
-Route::middleware(['role:librarian', 'role:admin'])->group(function(){
-    Route::resource('users', UserController::class)
-    ->only(['index']);
 
 });
