@@ -22,7 +22,7 @@
                         <td class="p-4 border border-gray-400">{{ $member->phone }}</td>
                         <td class="p-4 border border-gray-400 text-center">
                             @if ($member->google_id === null)
-                                <a href="{{ route('user.edit', $member) }}">
+                                <a href="{{ route('users.edit', $member) }}">
                                     <x-button>
                                         Edit
                                     </x-button>
@@ -30,7 +30,7 @@
                             @endif
                         </td>
                         <td class="p-4 border border-gray-400 text-center">
-                            <form method="POST" action="{{ route('user.destroy', $member) }}" class="inline-block">
+                            <form method="POST" action="{{ route('users.destroy', $member) }}" class="inline-block">
                                 @method('DELETE')
                                 @csrf
                                 <x-button class="text-white  rounded-lg !bg-red-600 hover:!bg-transparent hover:!text-red-600 hover:!border-red-600 focus:outline-none focus:ring-2 focus:!ring-red-600">

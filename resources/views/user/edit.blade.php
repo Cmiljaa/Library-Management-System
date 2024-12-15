@@ -4,7 +4,7 @@
     <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-bold text-center text-gray-700">Edit Profile</h2>
 
-        <form class="mt-6 space-y-4" action="{{ route('user.update', $user) }}" method="POST">
+        <form class="mt-6 space-y-4" action="{{ route('users.update', $user) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="flex flex-col md:flex-row justify-between gap-4">
