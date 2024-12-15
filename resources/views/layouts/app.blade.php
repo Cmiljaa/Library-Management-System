@@ -23,7 +23,7 @@
     @else
         <x-nav-bar :links="['Login' => route('auth.login'), 'Sign up'=> route('auth.register')]" />
     @endauth
-    <div>
+    <div class="min-h-screen">
         @yield('content')
     </div>
     @include('partials.footer')
