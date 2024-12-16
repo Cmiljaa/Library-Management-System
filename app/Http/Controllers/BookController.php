@@ -27,9 +27,10 @@ class BookController extends Controller
         return view('books.create');
     }
 
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        //
+        return redirect(route('books.show', $this->bookService->createBook($request->validated())))
+        ->with('success', 'Book created successfully');
     }
 
     public function show(Book $book)
