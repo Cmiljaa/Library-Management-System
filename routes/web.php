@@ -32,9 +32,6 @@ Route::middleware('guest')->prefix('/auth')->group(function(){
     });
 });
 
-Route::resource('books', BookController::class)
-->only(['index', 'show']);
-
 Route::middleware('auth')->group(function(){
 
     Route::middleware('role:librarian,admin')->group(function(){
@@ -42,7 +39,7 @@ Route::middleware('auth')->group(function(){
         ->only(['index']);
     
         Route::resource('books', BookController::class)
-        ->only(['create', 'store', 'edit', 'update', 'destroy']);
+        ->except(['index', 'show']);
     });
 
     Route::resource('users', UserController::class)->middleware('can:allowed,user')
@@ -51,3 +48,6 @@ Route::middleware('auth')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });
+
+Route::resource('books', BookController::class)
+->only(['index', 'show']);
