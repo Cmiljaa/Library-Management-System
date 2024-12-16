@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div>
             <h2 class="text-2xl font-semibold text-gray-800 mb-4">Description</h2>
-            <p class="text-gray-700 leading-relaxed">{{ $book->description }}</p>
+            <p class="text-gray-700 leading-relaxed">{{ $book->description ?? 'No description provided.' }}</p>
         </div>
 
         <div>
@@ -27,8 +27,8 @@
                 </li>
                 <li>
                     <span class="font-bold text-gray-900">Availability:</span> 
-                    <span class="{{ $book->available ? 'text-green-600' : 'text-red-600' }} font-semibold">
-                        {{ $book->available ? 'Available' : 'Unavailable' }}
+                    <span class="{{ $book->availability ? 'text-green-600' : 'text-red-600' }} font-semibold">
+                        {{ $book->availability ? 'Available' : 'Unavailable' }}
                     </span>
                 </li>
             </ul>

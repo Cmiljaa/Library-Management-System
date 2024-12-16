@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('genre');
             $table->string('author');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('language');
         });
     }
