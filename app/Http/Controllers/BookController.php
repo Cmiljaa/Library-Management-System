@@ -38,9 +38,9 @@ class BookController extends Controller
         return view('books.show', ['book' => $book, 'reviews' => ReviewService::getBookReviews($book)]);
     }
 
-    public function edit(string $id)
+    public function edit(Book $book)
     {
-        //
+        return view('books.edit', ['book' => $book]);
     }
 
     public function update(Request $request, string $id)
