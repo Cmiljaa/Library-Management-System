@@ -23,4 +23,10 @@ class BookService
             abort(500, 'An error occurred while creating a book.');
         }
     }
+
+    public function editBook(array $credentials, Book $book): void
+    {
+        $book->update($credentials);
+    }
+
 }

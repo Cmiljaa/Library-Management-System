@@ -43,9 +43,10 @@ class BookController extends Controller
         return view('books.edit', ['book' => $book]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(BookRequest $request, Book $book)
     {
-        //
+        $this->bookService->editBook($request->validated(), $book);
+        return redirect(route('books.show', $book))->with('success', 'Book update successfully');
     }
 
     public function destroy(string $id)
