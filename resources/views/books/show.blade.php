@@ -50,7 +50,7 @@
                     </x-button>
                 </a>
 
-                <form method="POST" action="{{ route('books.destroy', $book) }}" class="inline-block">
+                <form method="POST" action="{{ route('books.destroy', $book) }}"  onsubmit="return confirm('Are you sure you want to delete book?')" class="inline-block">
                     @method('DELETE')
                     @csrf
                     <x-button class="text-white  rounded-lg !bg-red-600 hover:!bg-transparent hover:!text-red-600 hover:!border-red-600 focus:outline-none focus:ring-2 focus:!ring-red-600">

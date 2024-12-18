@@ -49,8 +49,9 @@ class BookController extends Controller
         return redirect(route('books.show', $book))->with('success', 'Book update successfully');
     }
 
-    public function destroy(string $id)
+    public function destroy(Book $book)
     {
-        //
+        $this->bookService->deleteBook($book);
+        return redirect(route('books.index'))->with('success', 'Book deleted successfully');
     }
 }

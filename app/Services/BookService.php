@@ -29,4 +29,8 @@ class BookService
         $book->update($credentials);
     }
 
+    public function deleteBook(Book $book): void
+    {
+        $book->delete();
+    }
 }
