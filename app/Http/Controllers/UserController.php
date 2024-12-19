@@ -45,7 +45,7 @@ class UserController extends Controller
     public function update(RegisterRequest $request, User $user)
     {
         $this->userService->updateUser($user, $request->validated());
-        return view('user.show', ['user' => $user])->with('success', 'Profile updated successfully');
+        return redirect(route('users.show', ['user' => $user]))->with('success', 'Profile updated successfully');
     }
 
     public function destroy(User $user)

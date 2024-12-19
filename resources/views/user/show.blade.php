@@ -33,13 +33,7 @@
                 </a>
             @endif
 
-            <form action="{{ route('users.destroy', $user) }}" method="POST"  onsubmit="return confirm('Are you sure you want to delete profile?')">
-                @csrf
-                @method('DELETE')
-                <x-button class="text-white  rounded-lg !bg-red-600 hover:!bg-transparent hover:!text-red-600 hover:!border-red-600 focus:outline-none focus:ring-2 focus:!ring-red-600">
-                    Delete Profile
-                </x-button>
-            </form>
+            <x-delete :action="route('users.destroy', $user)" name="profile" />
         </div>
     </div>
 </div>
