@@ -42,6 +42,12 @@
             </x-button>
         </a>
 
+        <a href="{{ route('books.index') }}">
+            <x-button>
+                Add Review
+            </x-button>
+        </a>
+
         @auth
             @if (Auth::user()->role != 'member')
                 <a href="{{ route('books.edit', $book) }}">

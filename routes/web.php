@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,11 @@ Route::middleware('guest')->prefix('/auth')->group(function(){
 });
 
 Route::middleware('auth')->group(function(){
+
+    Route::middleware('role:member')->group(function() {
+        Route::resource('reviews', ReviewController::class)
+        ->except('show');
+    });
 
     Route::middleware('role:librarian,admin')->group(function(){
         Route::resource('users', UserController::class)
