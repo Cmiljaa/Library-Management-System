@@ -5,10 +5,10 @@
     </x-button>
 
     <div 
-        x-show="isModalOpen" 
+        x-show="isModalOpen" x-transition.opacity
         class="fixed inset-0 backdrop-blur-md flex items-center justify-center px-4 sm:px-6">
         
-        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md sm:max-w-lg md:max-w-xl">
+        <div x-transition class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md sm:max-w-lg md:max-w-xl">
             
             <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center md:text-left">Are you sure you want to delete this {{ $name }} ?</h2>
             

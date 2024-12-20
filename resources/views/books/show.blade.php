@@ -42,11 +42,7 @@
             </x-button>
         </a>
 
-        <a href="{{ route('books.index') }}">
-            <x-button>
-                Add Review
-            </x-button>
-        </a>
+        @include('reviews.create')
 
         @auth
             @if (Auth::user()->role != 'member')
