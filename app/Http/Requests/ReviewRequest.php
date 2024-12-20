@@ -14,8 +14,9 @@ class ReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rating' => 'required|min:1|max:5',
-            'description' => 'nullable'
+            'book_id' => 'required|integer|exists:books,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'description' => 'nullable|string|max:10000'
         ];
     }
 }

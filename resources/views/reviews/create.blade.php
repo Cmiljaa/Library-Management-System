@@ -17,6 +17,9 @@
 
             <form class="space-y-4" action="{{ route('reviews.store') }}" method="POST">
                 @csrf
+
+                <x-input type="hidden" name="book_id" value="{{ $book->id }}" />
+                
                 <div>
                     <x-label for="rating">Rating</x-label>
                     <x-input type="number" name="rating" id="rating" min="1" max="5" required />
@@ -26,6 +29,11 @@
                     <x-label for="description">Description</x-label>
                     <textarea name="description" id="description" 
                         class="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"></textarea>
+                    @error('description')
+                        <p class="text-red-600 text-sm">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <div>
