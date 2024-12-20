@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function(){
 
     Route::middleware('role:member')->group(function() {
         Route::resource('reviews', ReviewController::class)
-        ->except('show');
+        ->except(['show', 'create', 'edit']);
     });
 
     Route::middleware('role:librarian,admin')->group(function(){
