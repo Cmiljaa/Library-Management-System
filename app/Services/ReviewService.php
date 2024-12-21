@@ -25,4 +25,16 @@ class ReviewService
             abort(500, 'An error occurred while creating your review.');
         }
     }
+
+    public function updateReview(array $credentials, Review $review)
+    {
+        try
+        {
+            $review->update($credentials);
+        }
+        catch(\Exception $e)
+        {
+            abort(500, 'An error occurred while updating your review.');
+        }
+    }
 }

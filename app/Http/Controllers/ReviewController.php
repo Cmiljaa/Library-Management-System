@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ReviewRequest;
+use App\Models\Review;
 use App\Services\ReviewService;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,10 @@ class ReviewController extends Controller
         return redirect()->back()->with('success', 'Review added successfully');
     }
     
-    public function update(Request $request, string $id)
+    public function update(ReviewRequest $request, Review $review)
     {
-        //
+        $this->reviewService->updateReview($request->validated(), $review);
+        return redirect()->back()->with('success', 'Review updated successfully');
     }
     
     public function destroy(string $id)
