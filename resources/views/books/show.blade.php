@@ -89,6 +89,9 @@
             <div class="text-sm text-gray-500 mt-2">
                 <span>{{ $review->created_at->diffForHumans() }}</span>
             </div>
+            @if ($review->user->id === Auth::id())
+                @include('reviews.edit')
+            @endif
         </div>
     @empty
         <div class="text-center text-black text-xl">
