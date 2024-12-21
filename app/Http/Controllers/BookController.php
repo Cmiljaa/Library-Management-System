@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
+use App\Models\Review;
 use App\Services\BookService;
 use App\Services\ReviewService;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    protected $bookService;
+    protected $bookService, $reviewService;
 
-    public function __construct(BookService $bookService)
+    public function __construct(BookService $bookService, ReviewService $reviewService)
     {
         $this->bookService = $bookService;
+        $this->reviewService = $reviewService;
     }
 
     public function index(Request $request)
@@ -35,7 +37,7 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        return view('books.show', ['book' => $book, 'reviews' => ReviewService::getBookReviews($book)]);
+        return view('books.show', ['book' => $book, 'reviews' => $this->reviewService->getBookReviews($book)]);
     }
 
     public function edit(Book $book)

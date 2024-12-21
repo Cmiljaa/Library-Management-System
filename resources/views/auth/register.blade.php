@@ -37,7 +37,7 @@
         </div>
 
         <div>
-            <x-button>
+            <x-button class="w-full">
                 Sign Up
             </x-button>
         </div>

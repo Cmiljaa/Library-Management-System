@@ -19,7 +19,7 @@
         </div>
 
         <div>
-            <x-button>
+            <x-button class="w-full">
                 Login
             </x-button>
         </div>
