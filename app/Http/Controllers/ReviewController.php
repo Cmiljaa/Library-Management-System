@@ -33,8 +33,9 @@ class ReviewController extends Controller
         return redirect()->back()->with('success', 'Review updated successfully');
     }
     
-    public function destroy(string $id)
+    public function destroy(Review $review)
     {
-        //
+        $this->reviewService->deleteReview($review);
+        return redirect()->back()->with('success', 'Review deleted successfully');
     }
 }

@@ -37,4 +37,9 @@ class ReviewService
             abort(500, 'An error occurred while updating your review.');
         }
     }
+
+    public function deleteReview(Review $review): void
+    {
+        $review->delete();
+    }
 }

@@ -90,7 +90,10 @@
                 <span>{{ $review->created_at->diffForHumans() }}</span>
             </div>
             @if ($review->user->id === Auth::id())
-                @include('reviews.edit')
+                    @include('reviews.edit')
+                    <div class="mt-2">
+                        <x-delete name="review" action="{{ route('reviews.destroy', $review) }}"/>
+                    </div>
             @endif
         </div>
     @empty
