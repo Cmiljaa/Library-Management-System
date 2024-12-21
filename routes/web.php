@@ -36,8 +36,8 @@ Route::middleware('guest')->prefix('/auth')->group(function(){
 Route::middleware('auth')->group(function(){
 
     Route::middleware('role:member')->group(function() {
-        Route::resource('reviews', ReviewController::class)
-        ->except(['show', 'create', 'edit']);
+        Route::resource('reviews', ReviewController::class)->middleware('can:canAccessReview,review')
+        ->only(['store', 'update', 'destroy']);
     });
 
     Route::middleware('role:librarian,admin')->group(function(){
@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function(){
         ->except(['index', 'show']);
     });
 
-    Route::resource('users', UserController::class)->middleware('can:allowed,user')
+    Route::resource('users', UserController::class)->middleware('can:isUserSelfOrAdminLibrarian,user')
     ->only(['show', 'edit', 'update', 'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

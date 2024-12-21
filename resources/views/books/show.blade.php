@@ -42,8 +42,6 @@
             </x-button>
         </a>
 
-        @include('reviews.create')
-
         @auth
             @if (Auth::user()->role != 'member')
                 <a href="{{ route('books.edit', $book) }}">
@@ -52,6 +50,8 @@
                     </x-button>
                 </a>
                 <x-delete :action="route('books.destroy', $book)" name="book" />
+            @else
+                @include('reviews.create')
             @endif
         @endauth
         

@@ -16,11 +16,6 @@ class ReviewController extends Controller
         $this->reviewService = $reviewService;        
     }
 
-    public function index()
-    {
-        //
-    }
-
     public function store(ReviewRequest $request)
     {
         $this->reviewService->createReview($request->validated());
