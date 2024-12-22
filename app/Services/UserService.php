@@ -84,8 +84,19 @@ class UserService
         session()->regenerateToken();
     }
 
+    public function googleUser(User $user)
+    {
+        if($user->google_id === null)
+        {
+            return;
+        }
+
+        abort(500, "You can't edit google profile.");
+    }
+
     public function updateUser(User $user, array $data): void
     {
+        $this->googleUser($user);
         $user->update($data);
     }
 
