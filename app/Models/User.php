@@ -13,9 +13,14 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    public function reviews() :HasMany
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function book_issues(): HasMany
+    {
+        return $this->hasMany(BookIssue::class);
     }
 
     /**

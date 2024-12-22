@@ -14,9 +14,14 @@ class Book extends Model
 
     protected $fillable = ['title', 'author', 'genre', 'language', 'availability', 'description'];
 
-    public function reviews() :HasMany
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function book_issues(): HasMany
+    {
+        return $this->hasMany(BookIssue::class);
     }
     
     public function scopeFilterByAttribute($query, Request $request, array $attributes)
