@@ -12,7 +12,7 @@
     @auth
         @switch(Auth::user()->role)
             @case('librarian')
-            <x-nav-bar :links="['Home' => route('books.index'), 'Members' => route('users.index'), 'Notifications' => 'notifications']" />
+            <x-nav-bar :links="['Home' => route('books.index'), 'Members' => route('users.index'), 'Book Issues' => route('book_issues.index')]" />
                 @break
             @case('admin')
                 <x-nav-bar :links="['ADMIN' => 'home']" />
