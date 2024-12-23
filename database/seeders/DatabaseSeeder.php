@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use App\Models\BookIssue;
 use App\Models\Review;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -37,5 +38,7 @@ class DatabaseSeeder extends Seeder
                 ]);
             });
         });
+
+        BookIssue::factory()->count(200)->create();
     }
 }
