@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\Request;
 
-class BookIssue extends Model
+class BookLoan extends Model
 {
-    /** @use HasFactory<\Database\Factories\BookIssueFactory> */
+    /** @use HasFactory<\Database\Factories\BookLoanFactory> */
     use HasFactory;
 
     public function user(): BelongsTo
@@ -20,4 +21,4 @@ class BookIssue extends Model
     {
         return $this->belongsTo(Book::class);
     }
-}
+

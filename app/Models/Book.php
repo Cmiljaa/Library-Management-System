@@ -19,9 +19,9 @@ class Book extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function book_issues(): HasMany
+    public function book_loans(): HasMany
     {
-        return $this->hasMany(BookIssue::class);
+        return $this->hasMany(BookLoan::class);
     }
     
     public function scopeFilterByAttribute($query, Request $request, array $attributes)

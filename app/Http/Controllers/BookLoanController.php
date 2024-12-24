@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\BookIssueService as ServicesBookIssueService;
+use App\Services\BookLoanService as ServicesBookLoanService;
 use Illuminate\Http\Request;
 
-class BookIssueController extends Controller
+class BookLoanController extends Controller
 {
-    protected $bookIssueService;
+    protected $BookLoanService;
 
-    public function __construct(ServicesBookIssueService $bookIssueService)
+    public function __construct(ServicesBookLoanService $BookLoanService)
     {
-        $this->bookIssueService = $bookIssueService;
+        $this->BookLoanService = $BookLoanService;
     }
     
     public function index()
     {
-        return view('book_issues.index', ['book_issues' => $this->bookIssueService->getAllBookIssues()]);
+        return view('book_loans.index', ['book_loans' => $this->BookLoanService->getAllBookLoans()]);
     }
 
     public function create()

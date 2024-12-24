@@ -1,7 +1,7 @@
 <?php 
 
 return [
-    'issued' => 'Issued',
+    'borrowed' => 'Borrowed',
     'returned' => 'Returned',
     'overdue' => 'Overdue'
 ];

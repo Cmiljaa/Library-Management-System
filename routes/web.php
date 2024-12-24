@@ -3,10 +3,10 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\BookIssueController;
+use App\Http\Controllers\BookLoanController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
-use App\Models\BookIssue;
+use App\Models\BookLoan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function(){
         Route::resource('books', BookController::class)
         ->except(['index', 'show']);
 
-        Route::resource('book_issues', BookIssueController::class);
+        Route::resource('book_loans', BookLoanController::class);
     });
 
     Route::resource('users', UserController::class)->middleware('can:isUserSelfOrAdminLibrarian,user')

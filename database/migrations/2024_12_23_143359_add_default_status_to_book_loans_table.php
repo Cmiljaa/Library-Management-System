@@ -8,14 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('book_issues', function (Blueprint $table) {
-            $table->string('status')->default('issued')->change();
+        Schema::table('book_loans', function (Blueprint $table) {
+            $table->string('status')->default('borrowed')->change();
         });
     }
 
     public function down(): void
     {
-        Schema::table('book_issues', function (Blueprint $table) {
+        Schema::table('book_loans', function (Blueprint $table) {
             $table->string('status')->default(null)->change();
         });
     }
