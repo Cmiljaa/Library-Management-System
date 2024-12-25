@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -21,6 +22,16 @@ class User extends Authenticatable
     public function book_loans(): HasMany
     {
         return $this->hasMany(BookLoan::class);
+    }
+
+    public function scopeFilterByAttribute($query, Request $request, array $attributes)
+    {
+        foreach ($attributes as $attribute) {
+            if($request->filled($attribute))
+            {
+                $query->where($attribute, 'like', '%' . $request->$attribute . '%');
+            }
+        }
     }
 
     /**

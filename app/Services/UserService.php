@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -107,8 +108,8 @@ class UserService
         $user->delete();
     }
 
-    public function getAllMembers()
+    public function getAllMembers(Request $request)
     {
-        return User::where('role', 'member')->get();
+        return User::where('role', 'member')->FilterByAttribute($request, ['first_name', 'last_name', 'email'])->latest()->paginate(15);
     }
 }
