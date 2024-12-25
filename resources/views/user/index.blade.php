@@ -1,5 +1,28 @@
 @extends('layouts.app')
 @section('content')
+<div class="container mx-auto p-4 mt-2">
+    <form action="{{ route('users.index') }}" method="GET">
+        <div class="flex flex-wrap items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+            <div class="w-full max-w-md md:w-auto">
+                <x-label for="first_name">First Name</x-label>
+                <x-input name="first_name" id="first_name" placeholder="John" />
+            </div>
+            <div class="w-full max-w-md md:w-auto">
+                <x-label for="last_name">Last Name</x-label>
+                <x-input name="last_name" id="last_name" placeholder="Doe" />
+            </div>
+            <div class="w-full max-w-md md:w-auto">
+                <x-label for="email">Email</x-label>
+                <x-input name="email" id="email" placeholder="johndoe@mail.com" />
+            </div>
+        </div>
+        <div class="flex justify-center md:justify-center mt-3">
+            <x-button>
+                Submit
+            </x-button>
+        </div>
+    </form>
+</div>
 <div class="container mx-auto max-w-7xl py-12 mb-36">
     <div class="overflow-x-auto bg-white shadow-lg rounded-lg p-8">
         <table class="w-full border-collapse border border-gray-400">
@@ -49,5 +72,10 @@
             </tbody>
         </table>
     </div>
+    @if ($members->count())
+        <div class="flex justify-center mt-8">
+            {{ $members->links('pagination::tailwind') }}
+        </div>
+    @endif
 </div>
 @endsection
