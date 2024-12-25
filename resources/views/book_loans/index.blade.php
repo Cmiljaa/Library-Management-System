@@ -4,20 +4,20 @@
 <div class="container mx-auto mt-8">
     <form action="{{ route('book_loans.index') }}" method="GET" class="flex flex-col items-center space-y-5">
 
-        <div class="flex items-center justify-center space-x-5 w-full max-w-md">
-            <div class="w-full">
-                <x-label for="start_date">Pickup Date</x-label>
-                <x-input type="date" name="start_date" id="start_date" placeholder="Start Date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700" />
+        <div class="flex flex-col md:flex-row items-center justify-center space-y-5 md:space-x-5 md:space-y-0 w-full max-w-md">
+            <div class="w-full md:w-1/2">
+                <x-label for="borrow_date">Borrow Date</x-label>
+                <x-input type="date" name="borrow_date" id="borrow_date" placeholder="Borrow Date"/>
             </div>
-            <div class="w-full">
-                <x-label for="end_date">Return Date</x-label>
-                <x-input type="date" name="end_date" id="end_date" placeholder="End Date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700" />
+            <div class="w-full md:w-1/2">
+                <x-label for="return_date">Return Date</x-label>
+                <x-input type="date" name="return_date" id="return_date" placeholder="Return Date"/>
             </div>
         </div>
 
         <div class="w-full max-w-md">
             <x-label for="status">Status</x-label>
-            <x-select name="status" id="status" :array="config('book.statuses')" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-700" />
+            <x-select name="status" id="status" :array="config('book.statuses')" />
         </div>
 
         <div class="flex items-center justify-center space-x-5 w-full max-w-md">
@@ -48,9 +48,9 @@
             <tbody>
                 @forelse ($book_loans as $book_loan)
                     <tr class="bg-white hover:bg-gray-100">
-                        <td class="p-4 border border-gray-400">{{ $book_loan->user->last_name }} {{ $book_loan->user->first_name }}</td>
-                        <td class="p-4 border border-gray-400">{{ $book_loan->book->title }}</td>
-                        <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($book_loan->pickup_date)->format('jS F, Y') ?? '' }}</td>
+                        <td class="p-4 border border-gray-400"><a href="{{ route('users.show', $book_loan->user_id) }}">{{ $book_loan->user->last_name }} {{ $book_loan->user->first_name }}</a></td>
+                        <td class="p-4 border border-gray-400"><a href="{{ route('books.show', $book_loan->book_id) }}">{{ $book_loan->book->title }}</a></td>
+                        <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($book_loan->borrow_date)->format('jS F, Y') ?? '' }}</td>
                         <td class="p-4 border border-gray-400">{{ $book_loan->return_date ? Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') : ''}}</td>
                         <td class="p-4 border border-gray-400">{{ Str::ucfirst($book_loan->status) }}</td>
                     </tr>
