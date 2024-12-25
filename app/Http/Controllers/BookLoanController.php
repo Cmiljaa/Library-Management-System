@@ -14,9 +14,9 @@ class BookLoanController extends Controller
         $this->BookLoanService = $BookLoanService;
     }
     
-    public function index()
+    public function index(Request $request)
     {
-        return view('book_loans.index', ['book_loans' => $this->BookLoanService->getAllBookLoans()]);
+        return view('book_loans.index', ['book_loans' => $this->BookLoanService->getAllBookLoans($request)]);
     }
 
     public function create()
