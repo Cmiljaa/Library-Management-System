@@ -19,7 +19,7 @@ class BookLoanFactory extends Factory
         return [
             'book_id' => fake()->numberBetween(1, 100),
             'user_id' => fake()->numberBetween(1, 30),
-            'pickup_date' => fake()->date(),
+            'borrow_date' => fake()->date(),
             'return_date' => fake()->boolean() ? fake()->date() : null,
             'status' => fake()->randomElement(array_keys(config('book.statuses')))
         ];
