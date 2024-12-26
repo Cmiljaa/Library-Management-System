@@ -61,8 +61,24 @@
                         <td class="p-4 border border-gray-400"><a href="{{ route('users.show', $book_loan->user_id) }}">{{ $book_loan->user->last_name }} {{ $book_loan->user->first_name }}</a></td>
                         <td class="p-4 border border-gray-400"><a href="{{ route('books.show', $book_loan->book_id) }}">{{ $book_loan->book->title }}</a></td>
                         <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($book_loan->borrow_date)->format('jS F, Y') ?? '' }}</td>
-                        <td class="p-4 border border-gray-400">{{ $book_loan->return_date ? Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') : ''}}</td>
-                        <td class="p-4 border border-gray-400">{{ Str::ucfirst($book_loan->status) }}</td>
+                        <td class="p-4 border border-gray-400">
+                            @if ($book_loan->return_date != null)
+                                {{ Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') }}
+                            @else
+                                <form action="{{ route('book_loans.update', $book_loan) }}" method="POST" onclick="return confirm('Are you sure you want to mark this book as returned?')">
+                                    @csrf
+                                    @method('PUT')
+                                    <x-button>
+                                        Mark as Returned
+                                    </x-button>
+                                </form>
+                            @endif
+                        </td>
+                        <td class="p-4 border border-gray-400">
+                            <span class="{{ $book_loan->status === 'overdue' ? 'text-red-600' : ($book_loan->status === 'borrowed' ? 'text-blue-600' : '') }}">
+                                {{ Str::ucfirst($book_loan->status) }}
+                            </span>
+                        </td>
                     </tr>
                 @empty
                 <tr>
