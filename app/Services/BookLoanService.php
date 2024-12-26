@@ -10,4 +10,9 @@ class BookLoanService
     {
         return BookLoan::query()->FilterBySearch($request)->FilterByAttribute($request, ['status'])->FilterByDate($request)->latest()->paginate(15);
     }
+
+    public function createBookLoan(array $credentials)
+    {
+        BookLoan::create($credentials);
+    }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
-            $table->date('borrow_date');
+            $table->date('borrow_date')->default(now());
             $table->date('return_date')->nullable();
             $table->string('status');
             $table->timestamps();
