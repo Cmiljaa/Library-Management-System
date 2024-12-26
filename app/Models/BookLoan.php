@@ -12,7 +12,7 @@ class BookLoan extends Model
     /** @use HasFactory<\Database\Factories\BookLoanFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'book_id', 'status', 'borrow_date'];
+    protected $fillable = ['user_id', 'book_id', 'status', 'borrow_date', 'return_date', 'status'];
 
     public function user(): BelongsTo
     {

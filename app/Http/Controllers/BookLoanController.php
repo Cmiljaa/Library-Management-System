@@ -38,6 +38,7 @@ class BookLoanController extends Controller
 
     public function update(BookLoan $bookLoan)
     {
-        
+        $this->bookLoanService->updateBookLoan($bookLoan);
+        return redirect(route('book_loans.index'))->with('success', 'Book loan updated successfully');
     }
 }

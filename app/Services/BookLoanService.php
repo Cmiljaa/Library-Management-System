@@ -15,4 +15,12 @@ class BookLoanService
     {
         BookLoan::create($credentials);
     }
+
+    public function updateBookLoan(BookLoan $bookLoan)
+    {
+        $bookLoan->update([
+            'return_date' => now(),
+            'status' => 'returned'
+        ]);
+    }
 }
