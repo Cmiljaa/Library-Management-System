@@ -16,7 +16,7 @@
         </div>
 
         <div class="w-full max-w-md">
-            <x-label for="status">Status</x-label>
+            <x-label for="status" class="mb-2">Status</x-label>
             <x-select name="status" id="status" :array="config('book.statuses')" />
         </div>
 
@@ -31,6 +31,16 @@
             </div>
         </div>
     </form>
+    <div class="flex flex-col items-center space-y-5 mt-4">
+        <div class="w-full max-w-md">
+            <a href="{{ route('book_loans.create') }}">
+                <x-button class="w-full">
+                    Add Book Loan
+                </x-button>
+            </a>
+        </div>
+    </div>
+    
 </div>
 
 <div class="container mx-auto max-w-7xl py-10 mb-36">

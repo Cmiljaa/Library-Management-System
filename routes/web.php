@@ -49,7 +49,11 @@ Route::middleware('auth')->group(function(){
         Route::resource('books', BookController::class)
         ->except(['index', 'show']);
 
-        Route::resource('book_loans', BookLoanController::class);
+        Route::resource('book_loans', BookLoanController::class)
+        ->only(['index', 'create', 'store']);
+
+        Route::post('book_loans', [BookLoanController::class, 'update'])
+        ->name('book_loans.update');
     });
 
     Route::resource('users', UserController::class)->middleware('can:isUserSelfOrAdminLibrarian,user')
