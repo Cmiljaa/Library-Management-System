@@ -12,6 +12,8 @@ class BookLoan extends Model
     /** @use HasFactory<\Database\Factories\BookLoanFactory> */
     use HasFactory;
 
+    protected $fillable = ['user_id', 'book_id', 'status', 'borrow_date'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
