@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function(){
         ->except(['index', 'show']);
 
         Route::resource('book_loans', BookLoanController::class)
-        ->except(['show', 'edit', 'destroy']);
+        ->except(['show', 'destroy']);
     });
 
     Route::resource('users', UserController::class)->middleware('can:isUserSelfOrAdminLibrarian,user')
