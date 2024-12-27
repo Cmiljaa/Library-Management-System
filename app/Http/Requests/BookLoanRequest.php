@@ -13,10 +13,17 @@ class BookLoanRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
-            'status' => 'required|string|in:' . implode(',', array_keys(config('book.statuses'))),
+        $rules = [
             'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:books,id'
         ];
+
+        if($this->getMethod() === 'PUT')
+        {
+            $rules['borrow_date'] = 'required|date';
+            $rules['return_date'] = 'nullable|after:borrow_date';
+        }
+
+        return $rules;
     }
 }

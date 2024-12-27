@@ -2,7 +2,9 @@
 
 namespace App\Services;
 use App\Models\BookLoan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 
 class BookLoanService
 {
@@ -16,11 +18,21 @@ class BookLoanService
         BookLoan::create($credentials);
     }
 
-    public function updateBookLoan(BookLoan $bookLoan)
+    public function updateBookLoan(array $credentials, BookLoan $bookLoan)
     {
-        $bookLoan->update([
-            'return_date' => now(),
-            'status' => 'returned'
-        ]);
+        $credentials['status'] = $this->updateBookStatus($bookLoan);
+        $bookLoan->update($credentials);
+    }
+
+    public function updateBookStatus(BookLoan $bookLoan): string
+    {
+        if($bookLoan->return_date === null)
+        {
+            return now() > Carbon::parse($bookLoan->borrow_date)->copy()->addMonth() ? 'overdue' : 'borrowed';
+        }
+        else
+        {
+            return 'returned';
+        }
     }
 }

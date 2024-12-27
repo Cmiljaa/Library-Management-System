@@ -73,11 +73,6 @@
                     </p>
                 @enderror
             </div>
-
-            <div class="w-full max-w-md">
-                <x-label for="status" class="mb-2">Status</x-label>
-                <x-select name="status" id="status" :array="config('book.statuses')" />
-            </div>
     
             <div class="w-full">
                 <x-button class="w-full">
