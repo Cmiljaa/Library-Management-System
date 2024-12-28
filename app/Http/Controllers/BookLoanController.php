@@ -36,9 +36,14 @@ class BookLoanController extends Controller
         return redirect(route('book_loans.index'))->with('success', 'Book loan added successfully');
     }
 
-    public function update(BookLoan $bookLoan)
+    public function edit(BookLoan $bookLoan)
     {
-        $this->bookLoanService->updateBookLoan($bookLoan);
+        return view('book_loans.edit', ['book_loan' => $bookLoan]);
+    }
+
+    public function update(BookLoanRequest $request, BookLoan $bookLoan)
+    {
+        $this->bookLoanService->updateBookLoan($request->validated(), $bookLoan);
         return redirect(route('book_loans.index'))->with('success', 'Book loan updated successfully');
     }
 }

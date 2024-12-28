@@ -7,11 +7,11 @@
         <div class="flex flex-col md:flex-row items-center justify-center space-y-5 md:space-x-5 md:space-y-0 w-full max-w-md">
             <div class="w-full md:w-1/2">
                 <x-label for="borrow_date">Borrow Date</x-label>
-                <x-input type="date" name="borrow_date" id="borrow_date" placeholder="Borrow Date"/>
+                <x-input type="date" name="borrow_date" id="borrow_date"/>
             </div>
             <div class="w-full md:w-1/2">
                 <x-label for="return_date">Return Date</x-label>
-                <x-input type="date" name="return_date" id="return_date" placeholder="Return Date"/>
+                <x-input type="date" name="return_date" id="return_date"/>
             </div>
         </div>
 
@@ -50,9 +50,10 @@
                 <tr class="bg-black text-white">
                     <th class="p-4 border border-gray-400">User</th>
                     <th class="p-4 border border-gray-400">Book</th>
-                    <th class="p-4 border border-gray-400">Pickup Date</th>
+                    <th class="p-4 border border-gray-400">Borrow Date</th>
                     <th class="p-4 border border-gray-400">Return Date</th>
                     <th class="p-4 border border-gray-400">Status</th>
+                    <th class="p-4 border border-gray-400">Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,22 +63,19 @@
                         <td class="p-4 border border-gray-400"><a href="{{ route('books.show', $book_loan->book_id) }}">{{ $book_loan->book->title }}</a></td>
                         <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($book_loan->borrow_date)->format('jS F, Y') ?? '' }}</td>
                         <td class="p-4 border border-gray-400">
-                            @if ($book_loan->return_date != null)
-                                {{ Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') }}
-                            @else
-                                <form action="{{ route('book_loans.update', $book_loan) }}" method="POST" onclick="return confirm('Are you sure you want to mark this book as returned?')">
-                                    @csrf
-                                    @method('PUT')
-                                    <x-button>
-                                        Mark as Returned
-                                    </x-button>
-                                </form>
-                            @endif
+                            {{ $book_loan->return_date ? Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') : ''}}
                         </td>
                         <td class="p-4 border border-gray-400">
                             <span class="{{ $book_loan->status === 'overdue' ? 'text-red-600' : ($book_loan->status === 'borrowed' ? 'text-blue-600' : '') }}">
                                 {{ Str::ucfirst($book_loan->status) }}
                             </span>
+                        </td>
+                        <td class="p-4 border border-gray-400">
+                            <a href="{{ route('book_loans.edit', $book_loan) }}">
+                                <x-button>
+                                    Edit
+                                </x-button>
+                            </a>
                         </td>
                     </tr>
                 @empty
