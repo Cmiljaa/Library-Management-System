@@ -110,6 +110,6 @@ class UserService
     public function getAllMembers(Request $request)
     {
         return User::where('role', 'member')->FilterByAttribute($request, ['first_name', 'last_name', 'email'])
-        ->ApplySorting($request->sort, config('sort.user'))->paginate(15);
+        ->ApplySorting($request->sort, config('sort.user'))->paginate(15)->appends(['sort' => $request->sort]);
     }
 }

@@ -11,7 +11,7 @@ class BookLoanService
     public function getAllBookLoans(Request $request)
     {
         return BookLoan::query()->FilterBySearch($request)->FilterByAttribute($request, ['status'])
-        ->applySorting($request->sort, config('sort.book_loan'))->FilterByDate($request)->latest()->paginate(15);
+        ->applySorting($request->sort, config('sort.book_loan'))->FilterByDate($request)->latest()->paginate(15)->appends(['sort' => $request->sort]);
     }
 
     public function createBookLoan(array $credentials): void
