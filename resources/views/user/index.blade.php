@@ -24,6 +24,12 @@
     </form>
 </div>
 <div class="container mx-auto max-w-7xl py-12 mb-36">
+    <form action="{{ route('users.index') }}">
+        <div class="w-full max-w-md md:w-auto mb-5">
+            <x-label for="sort">Sort</x-label>
+            <x-select name="sort" selected="created_at, asc" id="sort" onchange="this.form.submit()" :array="config('sort.user')" />
+        </div>
+    </form>
     <div class="overflow-x-auto bg-white shadow-lg rounded-lg p-8">
         <table class="w-full border-collapse border border-gray-400">
             <thead>
