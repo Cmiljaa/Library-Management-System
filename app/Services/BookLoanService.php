@@ -10,15 +10,16 @@ class BookLoanService
 {
     public function getAllBookLoans(Request $request)
     {
-        return BookLoan::query()->FilterBySearch($request)->FilterByAttribute($request, ['status'])->FilterByDate($request)->latest()->paginate(15);
+        return BookLoan::query()->FilterBySearch($request)->FilterByAttribute($request, ['status'])
+        ->applySorting($request->sort, config('sort.book_loan'))->FilterByDate($request)->latest()->paginate(15);
     }
 
-    public function createBookLoan(array $credentials)
+    public function createBookLoan(array $credentials): void
     {
         BookLoan::create($credentials);
     }
 
-    public function updateBookLoan(array $credentials, BookLoan $bookLoan)
+    public function updateBookLoan(array $credentials, BookLoan $bookLoan): void
     {
         $credentials['status'] = $this->updateBookStatus($bookLoan);
         $bookLoan->update($credentials);

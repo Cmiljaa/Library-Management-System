@@ -10,7 +10,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class UserService
 {
-
     public function createUserFromGoogleData($googleUser): void
     {
         $nameParts = explode(' ', $googleUser->name);
@@ -85,7 +84,7 @@ class UserService
         session()->regenerateToken();
     }
 
-    public function googleUser(User $user)
+    public function googleUser(User $user): void
     {
         if($user->google_id === null)
         {
@@ -110,6 +109,7 @@ class UserService
 
     public function getAllMembers(Request $request)
     {
-        return User::where('role', 'member')->FilterByAttribute($request, ['first_name', 'last_name', 'email'])->latest()->paginate(15);
+        return User::where('role', 'member')->FilterByAttribute($request, ['first_name', 'last_name', 'email'])
+        ->ApplySorting($request->sort, config('sort.user'))->paginate(15);
     }
 }
