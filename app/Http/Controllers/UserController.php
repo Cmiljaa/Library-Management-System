@@ -55,4 +55,10 @@ class UserController extends Controller
 
         return redirect(route('books.index'))->with('success', 'Profile deleted successfully');
     }
+
+    public function userBookLoans(User $user)
+    {
+        $bookLoans = $this->userService->getUserBooks($user);
+        return view('user.book_loans', ['book_loans' => $bookLoans]);
+    }
 }

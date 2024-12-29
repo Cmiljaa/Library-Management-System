@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\BookLoan;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -111,5 +112,11 @@ class UserService
     {
         return User::where('role', 'member')->FilterByAttribute($request, ['first_name', 'last_name', 'email'])
         ->ApplySorting($request->sort, config('sort.user'))->paginate(15)->appends(['sort' => $request->sort]);
+    }
+
+    public function getUserBooks(User $user)
+    {
+        return BookLoan::with(['book'])->where('user_id', $user->id)->orderByRaw("FIELD(status, 'overdue', 'borrowed', 'returned')")
+        ->latest()->paginate(15);
     }
 }
