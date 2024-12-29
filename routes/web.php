@@ -53,6 +53,9 @@ Route::middleware('auth')->group(function(){
         ->except(['show', 'destroy']);
     });
 
+    Route::get('users/{user}/book_loans', [UserController::class, 'userBookLoans'])
+    ->name('user.book_loans');
+
     Route::resource('users', UserController::class)->middleware('can:isUserSelfOrAdminLibrarian,user')
     ->only(['show', 'edit', 'update', 'destroy']);
 

@@ -24,11 +24,10 @@
     </form>
 </div>
 
-<x-table :fields="['first name', 'last name', 'email', 'phone', 'edit', 'delete']" :pagination="$members" :action="route('users.index')" :sortOptions="config('sort.user')">
+<x-table :fields="['name', 'email', 'phone', 'edit', 'delete']" :pagination="$members" :action="route('users.index')" :sortOptions="config('sort.user')">
     @forelse ($members as $member)
         <tr class="bg-white hover:bg-gray-100">
-            <td class="p-4 border border-gray-400">{{ $member->first_name }}</td>
-            <td class="p-4 border border-gray-400">{{ $member->last_name }}</td>
+            <td class="p-4 border border-gray-400"><a href="{{ route('users.show', $member) }}">{{ $member->first_name }} {{ $member->last_name }}</a></td>
             <td class="p-4 border border-gray-400">{{ $member->email }}</td>
             <td class="p-4 border border-gray-400">{{ $member->phone }}</td>
             <td class="p-4 border border-gray-400 text-center">
