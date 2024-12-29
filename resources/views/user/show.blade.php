@@ -21,6 +21,7 @@
                     @endif
                     <li><strong>Email:</strong> {{ $user->email }}</li>
                     <li><strong>Phone:</strong> {{ $user->phone }}</li>
+                    <li><strong>Date Joined:</strong> {{ Carbon\Carbon::parse($user->created_at)->format('jS F, Y') }}</li>
                 </ul>
             </div>
         </div>

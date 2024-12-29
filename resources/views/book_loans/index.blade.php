@@ -43,61 +43,35 @@
     
 </div>
 
-<div class="container mx-auto max-w-7xl py-10 mb-36">
-    <form action="{{ route('book_loans.index') }}">
-        <div class="w-full max-w-md md:w-auto mb-5">
-            <x-label for="sort">Sort</x-label>
-            <x-select name="sort" selected="created_at, asc" id="sort" onchange="this.form.submit()" :array="config('sort.book_loan')" />
-        </div>
-    </form>
-    <div class="overflow-x-auto bg-white shadow-lg rounded-lg p-8">
-        <table class="w-full border-collapse border border-gray-400">
-            <thead>
-                <tr class="bg-black text-white">
-                    <th class="p-4 border border-gray-400">User</th>
-                    <th class="p-4 border border-gray-400">Book</th>
-                    <th class="p-4 border border-gray-400">Borrow Date</th>
-                    <th class="p-4 border border-gray-400">Return Date</th>
-                    <th class="p-4 border border-gray-400">Status</th>
-                    <th class="p-4 border border-gray-400">Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($book_loans as $book_loan)
-                    <tr class="bg-white hover:bg-gray-100">
-                        <td class="p-4 border border-gray-400"><a href="{{ route('users.show', $book_loan->user_id) }}">{{ $book_loan->user->last_name }} {{ $book_loan->user->first_name }}</a></td>
-                        <td class="p-4 border border-gray-400"><a href="{{ route('books.show', $book_loan->book_id) }}">{{ $book_loan->book->title }}</a></td>
-                        <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($book_loan->borrow_date)->format('jS F, Y') ?? '' }}</td>
-                        <td class="p-4 border border-gray-400">
-                            {{ $book_loan->return_date ? Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') : ''}}
-                        </td>
-                        <td class="p-4 border border-gray-400">
-                            <span class="{{ $book_loan->status === 'overdue' ? 'text-red-600' : ($book_loan->status === 'borrowed' ? 'text-blue-600' : '') }}">
-                                {{ Str::ucfirst($book_loan->status) }}
-                            </span>
-                        </td>
-                        <td class="p-4 border border-gray-400">
-                            <a href="{{ route('book_loans.edit', $book_loan) }}">
-                                <x-button>
-                                    Edit
-                                </x-button>
-                            </a>
-                        </td>
-                    </tr>
-                @empty
-                <tr>
-                    <td colspan="6" class="text-center p-4 text-black">
-                        No book loans available at the moment.
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-    @if ($book_loans->count())
-        <div class="flex justify-center mt-8">
-            {{ $book_loans->links('pagination::tailwind') }}
-        </div>
-    @endif
-</div>
+<x-table :fields="['user', 'book', 'borrow date', 'return date', 'status', 'edit']" :pagination="$book_loans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
+    @forelse ($book_loans as $book_loan)
+        <tr class="bg-white hover:bg-gray-100">
+            <td class="p-4 border border-gray-400"><a href="{{ route('users.show', $book_loan->user_id) }}">{{ $book_loan->user->last_name }} {{ $book_loan->user->first_name }}</a></td>
+            <td class="p-4 border border-gray-400"><a href="{{ route('books.show', $book_loan->book_id) }}">{{ $book_loan->book->title }}</a></td>
+            <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($book_loan->borrow_date)->format('jS F, Y') ?? '' }}</td>
+            <td class="p-4 border border-gray-400">
+                {{ $book_loan->return_date ? Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') : ''}}
+            </td>
+            <td class="p-4 border border-gray-400">
+                <span class="{{ $book_loan->status === 'overdue' ? 'text-red-600' : ($book_loan->status === 'borrowed' ? 'text-blue-600' : '') }}">
+                    {{ Str::ucfirst($book_loan->status) }}
+                </span>
+            </td>
+            <td class="p-4 border border-gray-400">
+                <a href="{{ route('book_loans.edit', $book_loan) }}">
+                    <x-button>
+                        Edit
+                    </x-button>
+                </a>
+            </td>
+        </tr>
+    @empty
+    <tr>
+        <td colspan="6" class="text-center p-4 text-black">
+            No book loans available at the moment.
+        </td>
+    </tr>
+    @endforelse
+</x-table>
+
 @endsection
