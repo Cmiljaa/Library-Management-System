@@ -46,8 +46,8 @@
 <x-table :fields="['user', 'book', 'borrow date', 'return date', 'status', 'edit']" :pagination="$book_loans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
     @forelse ($book_loans as $book_loan)
         <tr class="bg-white hover:bg-gray-100">
-            <td class="p-4 border border-gray-400"><a href="{{ route('user.book_loans', $book_loan->user_id) }}">{{ $book_loan->user->last_name }} {{ $book_loan->user->first_name }}</a></td>
-            <td class="p-4 border border-gray-400"><a href="{{ route('books.show', $book_loan->book_id) }}">{{ $book_loan->book->title }}</a></td>
+            <td class="p-4 border border-gray-400 hover:underline"><a href="{{ route('users.book_loans', $book_loan->user_id) }}">{{ $book_loan->user->last_name }} {{ $book_loan->user->first_name }}</a></td>
+            <td class="p-4 border border-gray-400 hover:underline"><a href="{{ route('books.show', $book_loan->book_id) }}">{{ $book_loan->book->title }}</a></td>
             <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($book_loan->borrow_date)->format('jS F, Y') ?? '' }}</td>
             <td class="p-4 border border-gray-400">
                 {{ $book_loan->return_date ? Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') : ''}}

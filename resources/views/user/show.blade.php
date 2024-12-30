@@ -39,6 +39,20 @@
     </div>
 </div>
 
+@auth
+    @if (Auth::user()->role != 'member')
+        <div class="flex items-center justify-center mt-10">
+            <div class="bg-white text-black rounded-lg shadow-lg p-8 text-center">
+                <h1 class="text-3xl font-bold">
+                    <a href="{{ route('users.book_loans', $user) }}" 
+                        class="text-black  hover:underline">
+                        Book Loans of {{ $user->first_name }} {{ $user->last_name }}
+                    </a>
+                </h1>
+            </div>
+        </div>
+    @endif
+@endauth
 
 
 @endsection
