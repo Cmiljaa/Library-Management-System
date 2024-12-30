@@ -42,18 +42,18 @@
             </x-button>
         </a>
 
-        @auth
-            @if (Auth::user()->role != 'member')
-                <a href="{{ route('books.edit', $book) }}">
-                    <x-button>
-                        Edit Book
-                    </x-button>
-                </a>
-                <x-delete :action="route('books.destroy', $book)" name="book" />
-            @else
-                @include('reviews.create')
-            @endif
-        @endauth
+        <x-role-access :roles="['librarian', 'admin']">
+            <a href="{{ route('books.edit', $book) }}">
+                <x-button>
+                    Edit Book
+                </x-button>
+            </a>
+            <x-delete :action="route('books.destroy', $book)" name="book" />
+        </x-role-access>
+        
+        <x-role-access :roles="['member']">
+            @include('reviews.create')
+        </x-role-access>
         
         @if(!$reviews->isEmpty())
             <div class="flex items-center gap-2 mt-4 sm:mt-0">

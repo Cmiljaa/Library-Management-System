@@ -1,20 +1,18 @@
 @extends('layouts.app')
 @section('content')
 
-@auth
-    @if (Auth::user()->role != 'member')
-        <div class="flex items-center justify-center mt-10">
-            <div class="bg-white text-black rounded-lg shadow-lg p-8 text-center">
-                <h1 class="text-3xl font-bold">
-                    <a href="{{ route('users.show', $book_loans->first()->user->id) }}" 
-                        class="text-black  hover:underline">
-                        Book Loans of {{ $book_loans->first()->user->first_name }} {{ $book_loans->first()->user->last_name }}
-                    </a>
-                </h1>
-            </div>
+<x-role-access :roles="['librarian', 'admin']">
+    <div class="flex items-center justify-center mt-10">
+        <div class="bg-white text-black rounded-lg shadow-lg p-8 text-center">
+            <h1 class="text-3xl font-bold">
+                <a href="{{ route('users.show', $book_loans->first()->user->id) }}" 
+                    class="text-black  hover:underline">
+                    Book Loans of {{ $book_loans->first()->user->first_name }} {{ $book_loans->first()->user->last_name }}
+                </a>
+            </h1>
         </div>
-    @endif
-@endauth
+    </div>
+</x-role-access>
 
 <x-table :fields="['book', 'borrow date', 'return date', 'status']" :pagination="$book_loans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
     @forelse ($book_loans as $book_loan)
