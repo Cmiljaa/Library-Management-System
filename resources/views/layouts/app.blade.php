@@ -18,7 +18,7 @@
                 <x-nav-bar :links="['ADMIN' => 'home']" />
                 @break
             @default
-                <x-nav-bar :links="['Home' => route('books.index'), 'My Books' => route('user.book_loans', Auth::user()), 'Notifications' => 'notifications']" />
+                <x-nav-bar :links="['Home' => route('books.index'), 'My Books' => route('users.book_loans', Auth::user()), 'Notifications' => 'notifications']" />
         @endswitch
     @else
         <x-nav-bar :links="['Login' => route('auth.login'), 'Sign up'=> route('auth.register')]" />

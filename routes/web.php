@@ -7,6 +7,7 @@ use App\Http\Controllers\BookLoanController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Models\BookLoan;
+use App\Models\Review;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -37,9 +38,14 @@ Route::middleware('guest')->prefix('/auth')->group(function(){
 
 Route::middleware('auth')->group(function(){
 
-    Route::middleware('role:member')->group(function() {
-        Route::resource('reviews', ReviewController::class)->middleware('can:canAccessReview,review')
-        ->only(['store', 'update', 'destroy']);
+    Route::middleware('role:member')->controller(ReviewController::class)->group(function() {
+
+        Route::middleware('can:canAccessReview,review')->group(function(){
+            Route::put('reviews/{review}', 'update')->name('reviews.update');
+            Route::delete('reviews/{review}','destroy')->name('reviews.destroy');
+        });
+
+        Route::post('reviews', 'store')->name('reviews.store');
     });
 
     Route::middleware('role:librarian,admin')->group(function(){
@@ -53,11 +59,12 @@ Route::middleware('auth')->group(function(){
         ->except(['show', 'destroy']);
     });
 
-    Route::get('users/{user}/book_loans', [UserController::class, 'userBookLoans'])
-    ->name('user.book_loans');
+    Route::controller(UserController::class)->middleware('can:isUserSelfOrAdminLibrarian,user')->group(function(){
+        Route::get('users/{user}/book_loans', 'userBookLoans')
+        ->name('users.book_loans');
 
-    Route::resource('users', UserController::class)->middleware('can:isUserSelfOrAdminLibrarian,user')
-    ->only(['show', 'edit', 'update', 'destroy']);
+        Route::resource('users', UserController::class)->only(['show', 'edit', 'update', 'destroy']);
+    });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
