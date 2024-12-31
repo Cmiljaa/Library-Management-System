@@ -5,9 +5,9 @@
     <div class="flex items-center justify-center mt-10">
         <div class="bg-white text-black rounded-lg shadow-lg p-8 text-center">
             <h1 class="text-3xl font-bold">
-                <a href="{{ route('users.show', $book_loans->first()->user->id) }}" 
+                <a href="{{ route('users.show', $user) }}"
                     class="text-black  hover:underline">
-                    Book Loans of {{ $book_loans->first()->user->first_name }} {{ $book_loans->first()->user->last_name }}
+                    Book Loans of {{ $user->first_name }} {{ $user->last_name }}
                 </a>
             </h1>
         </div>

@@ -59,6 +59,6 @@ class UserController extends Controller
     public function userBookLoans(User $user)
     {
         $bookLoans = $this->userService->getUserBooks($user);
-        return view('user.book_loans', ['book_loans' => $bookLoans]);
+        return view('user.book_loans', ['book_loans' => $bookLoans, 'user' => $user]);
     }
 }
