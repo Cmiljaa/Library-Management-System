@@ -32,8 +32,15 @@ class BookLoanController extends Controller
 
     public function store(BookLoanRequest $request)
     {
-        $this->bookLoanService->createBookLoan($request->validated());
-        return redirect(route('book_loans.index'))->with('success', 'Book loan added successfully');
+        try
+        {
+            $this->bookLoanService->createBookLoan($request->validated());
+            return redirect(route('book_loans.index'))->with('success', 'Book loan added successfully');
+        }
+        catch (\Exception $e)
+        {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function edit(BookLoan $bookLoan)
