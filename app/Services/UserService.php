@@ -108,9 +108,9 @@ class UserService
         $user->delete();
     }
 
-    public function getAllMembers(Request $request)
+    public function getUsersByRoles(Request $request, array $roles = ['admin', 'librarian', 'member'])
     {
-        return User::where('role', 'member')->FilterByAttribute($request, ['first_name', 'last_name', 'email'])
+        return User::whereIn('role', $roles)->FilterByAttribute($request, ['first_name', 'last_name', 'email'])
         ->ApplySorting($request->sort, config('sort.user'))->paginate(15)->appends(['sort' => $request->sort]);
     }
 

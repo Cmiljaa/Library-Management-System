@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        return view('user.index', ['members' => $this->userService->getAllMembers($request)]);
+        return view('user.index', ['members' => $this->userService->getUsersByRoles($request, ['member'])]);
     }
 
     public function create()

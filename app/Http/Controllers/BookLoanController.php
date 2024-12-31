@@ -27,7 +27,7 @@ class BookLoanController extends Controller
 
     public function create(Request $request)
     {
-        return view('book_loans.create', ['users' => $this->userService->getAllMembers($request), 'books' => $this->bookService->getAllBooks($request)]);
+        return view('book_loans.create', ['users' => $this->userService->getUsersByRoles($request), 'books' => $this->bookService->getAllBooks($request)]);
     }
 
     public function store(BookLoanRequest $request)
