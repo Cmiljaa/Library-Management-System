@@ -116,7 +116,12 @@ class UserService
 
     public function getUserBooks(User $user)
     {
-        return BookLoan::with(['book'])->where('user_id', $user->id)->orderByRaw("FIELD(status, 'overdue', 'borrowed', 'returned')")
+        return BookLoan::with(['book', 'user:id,first_name,last_name'])->where('user_id', $user->id)
         ->latest()->paginate(15);
+    }
+
+    public function userBooksNumber(User $user)
+    {
+        return $this->getUserBooks($user)->total();
     }
 }
