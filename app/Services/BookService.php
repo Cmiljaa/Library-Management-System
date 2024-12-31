@@ -7,21 +7,19 @@ use Illuminate\Http\Request;
 
 class BookService
 {
-    public function getAllBooks(Request $request)
+    public function getAllBooks(Request $request, $available = null)
     {
-        return Book::query()->withAvg('reviews', 'rating')->FilterBySearch($request)->FilterByAttribute($request, ['genre', 'language'])->latest()->paginate(10);
+        $query = Book::query()->withAvg('reviews', 'rating')->FilterBySearch($request)->FilterByAttribute($request, ['genre', 'language'])
+        ->when(!is_null($available), function ($query) use ($available) {
+            $query->where('availability', (bool)$available);
+        })->latest();
+
+        return $query->paginate(15);
     }
 
     public function createBook(array $credentials): Book
     {
-        try
-        {
-            return Book::create($credentials);
-        }
-        catch (\Exception $th)
-        {
-            abort(500, 'An error occurred while creating a book.');
-        }
+        return Book::create($credentials);
     }
 
     public function editBook(array $credentials, Book $book): void
@@ -32,5 +30,11 @@ class BookService
     public function deleteBook(Book $book): void
     {
         $book->delete();
+    }
+
+    public function changeAvailability(Book $book): void
+    {
+        $book->availability =  !$book->availability;
+        $book->save();
     }
 }
