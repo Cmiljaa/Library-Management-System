@@ -6,6 +6,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
@@ -19,7 +20,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        return view('user.index', ['members' => $this->userService->getUsersByRoles($request, ['member'])]);
+        return view('user.index', ['users' => $this->userService->getUsersByRoles($request, Auth::user()->role === 'admin' ? ['member', 'librarian'] : ['member'])]);
     }
 
     public function create()

@@ -24,15 +24,19 @@
     </form>
 </div>
 
-<x-table :fields="['name', 'email', 'phone', 'edit', 'delete']" :pagination="$members" :action="route('users.index')" :sortOptions="config('sort.user')">
-    @forelse ($members as $member)
+<x-table  :fields="Auth::user()->role === 'admin' ? ['name', 'email', 'phone', 'role', 'edit', 'delete'] : ['name', 'email', 'phone', 'edit', 'delete']"
+ :pagination="$users" :action="route('users.index')" :sortOptions="config('sort.user')">
+    @forelse ($users as $user)
         <tr class="bg-white hover:bg-gray-100">
-            <td class="p-4 border border-gray-400"><a href="{{ route('users.show', $member) }}">{{ $member->first_name }} {{ $member->last_name }}</a></td>
-            <td class="p-4 border border-gray-400">{{ $member->email }}</td>
-            <td class="p-4 border border-gray-400">{{ $member->phone }}</td>
+            <td class="p-4 border border-gray-400"><a href="{{ route('users.show', $user) }}">{{ $user->first_name }} {{ $user->last_name }}</a></td>
+            <td class="p-4 border border-gray-400">{{ $user->email }}</td>
+            <td class="p-4 border border-gray-400">{{ $user->phone }}</td>
+            <x-role-access :roles="['admin']">
+                <td class="p-4 border border-gray-400">{{ Str::ucfirst($user->role) }}</td>
+            </x-role-access>
             <td class="p-4 border border-gray-400 text-center">
-                @if ($member->google_id === null)
-                    <a href="{{ route('users.edit', $member) }}">
+                @if ($user->google_id === null)
+                    <a href="{{ route('users.edit', $user) }}">
                         <x-button>
                             Edit
                         </x-button>
@@ -40,7 +44,7 @@
                 @endif
             </td>
             <td class="p-4 border border-gray-400 text-center">
-                <form method="POST" action="{{ route('users.destroy', $member) }}" class="inline-block">
+                <form method="POST" action="{{ route('users.destroy', $user) }}" class="inline-block">
                     @method('DELETE')
                     @csrf
                     <x-button class="text-white  rounded-lg !bg-red-600 hover:!bg-transparent hover:!text-red-600 hover:!border-red-600 focus:outline-none focus:ring-2 focus:!ring-red-600">
@@ -52,7 +56,7 @@
     @empty
         <tr>
             <td colspan="6" class="text-center p-4 text-black">
-                No members available at the moment.
+                No users available at the moment.
             </td>
         </tr>
     @endforelse
