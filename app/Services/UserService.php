@@ -29,39 +29,27 @@ class UserService
 
     public function handleGoogleCallback(): bool
     {
-        try {
-            $googleUser = Socialite::driver('google')->user();
-            $findUser = User::where('google_id', $googleUser->id)->first();
+        $googleUser = Socialite::driver('google')->user();
+        $findUser = User::where('google_id', $googleUser->id)->first();
 
-            if ($findUser) {
-                Auth::login($findUser);
-                return true;
-            }
-            else
-            {
-                $this->createUserFromGoogleData($googleUser);
-                return false;
-            }
+        if ($findUser) {
+            Auth::login($findUser);
+            return true;
         }
-        catch (Exception $e)
+        else
         {
-            abort(500, 'An error occurred during Google authorization. Please try again later.');
+            $this->createUserFromGoogleData($googleUser);
+            return false;
         }
     }
 
     public function registerUser(array $credentials, bool $useFactory = false): void
     {
-        try {
-            $user = $useFactory ? User::factory()->create($credentials) : User::create($credentials);
+        $user = $useFactory ? User::factory()->create($credentials) : User::create($credentials);
 
-            Auth::login($user);
+        Auth::login($user);
 
-            session()->regenerate();
-        }
-        catch (Exception $e)
-        {
-            abort(500, 'We encountered an issue while creating your account. Please try again later.');
-        }
+        session()->regenerate();
     }
 
     public function loginUser(array $credentials): bool

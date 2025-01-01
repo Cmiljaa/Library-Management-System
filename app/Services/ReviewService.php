@@ -15,27 +15,13 @@ class ReviewService
 
     public function createReview(array $credentials): void
     {
-        try
-        {
-            $credentials['user_id'] = Auth::id();
-            Review::create($credentials);
-        }
-        catch (\Exception $th)
-        {
-            abort(500, 'An error occurred while creating your review.');
-        }
+        $credentials['user_id'] = Auth::id();
+        Review::create($credentials);
     }
 
     public function updateReview(array $credentials, Review $review)
     {
-        try
-        {
-            $review->update($credentials);
-        }
-        catch(\Exception $e)
-        {
-            abort(500, 'An error occurred while updating your review.');
-        }
+        $review->update($credentials);
     }
 
     public function deleteReview(Review $review): void

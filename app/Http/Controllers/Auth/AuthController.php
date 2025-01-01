@@ -38,9 +38,17 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $this->userService->registerUser($request->validated());
+        try
+        {
+            $this->userService->registerUser($request->validated());
 
-        return redirect(route('books.index'))->with('success', 'Account created successfully');
+            return redirect(route('books.index'))->with('success', 'Account created successfully');
+        }
+        catch(\Exception $e)
+        {
+            
+            return redirect(route('books.index'))->with('error', 'An error occurred while creating your account.');
+        }
     }
 
     public function logout()
