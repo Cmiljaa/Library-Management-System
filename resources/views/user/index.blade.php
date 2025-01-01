@@ -28,7 +28,7 @@
  :pagination="$users" :action="route('users.index')" :sortOptions="config('sort.user')">
     @forelse ($users as $user)
         <tr class="bg-white hover:bg-gray-100">
-            <td class="p-4 border border-gray-400"><a href="{{ route('users.show', $user) }}">{{ $user->first_name }} {{ $user->last_name }}</a></td>
+            <td class="p-4 border border-gray-400 hover:underline"><a href="{{ route('users.show', $user) }}">{{ $user->first_name }} {{ $user->last_name }}</a></td>
             <td class="p-4 border border-gray-400">{{ $user->email }}</td>
             <td class="p-4 border border-gray-400">{{ $user->phone }}</td>
             <x-role-access :roles="['admin']">
