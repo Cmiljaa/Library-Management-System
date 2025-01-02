@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function(){
         Route::resource('users', UserController::class)->only(['show', 'edit', 'update', 'destroy']);
     });
 
+    Route::get('/notifications', [UserController::class, 'showNotifications'])
+    ->name('users.notifications');
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });
