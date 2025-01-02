@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="flex justify-center items-center mb-20">
+<div class="flex justify-center items-center">
     <div class="container mx-auto p-6 mt-10 bg-white text-gray-900 rounded-lg shadow-lg max-w-4xl">
         <div class="border-b border-gray-300 pb-4 mb-6">
             <h1 class="text-4xl font-extrabold text-gray-900">
@@ -40,15 +40,13 @@
 </div>
 
 <x-role-access :roles="['librarian', 'admin']">
-    <div class="flex items-center justify-center mt-10">
-        <div class="bg-white text-black rounded-lg shadow-lg p-8 text-center">
-            <h1 class="text-3xl font-bold">
-                <a href="{{ route('users.book_loans', $user) }}" 
-                    class="text-black  hover:underline">
-                    Book Loans of {{ $user->first_name }} {{ $user->last_name }}
-                </a>
-            </h1>
-        </div>
+    <div class="container mx-auto p-2 mt-2 max-w-4xl">
+        <h1 class="text-2xl font-bold">
+            <a href="{{ route('users.book_loans', $user) }}" 
+                class="hover:underline">
+                Book Loans of {{ $user->first_name }} {{ $user->last_name }}
+            </a>
+        </h1>
     </div>
 </x-role-access>
 
