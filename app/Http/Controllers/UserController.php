@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use App\Services\NotificationService;
+use App\Services\BookLoanService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    protected $userService;
+    protected $userService, $bookLoanService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, BookLoanService $bookLoanService)
     {
         $this->userService = $userService;
+        $this->bookLoanService = $bookLoanService;
     }
 
     public function index(Request $request)
@@ -60,7 +60,6 @@ class UserController extends Controller
 
     public function userBookLoans(User $user)
     {
-        $bookLoans = $this->userService->getUserBooks($user);
-        return view('user.book_loans', ['book_loans' => $bookLoans, 'user' => $user]);
+        return view('user.book_loans', ['book_loans' => $this->bookLoanService->getUserBooks($user), 'user' => $user]);
     }
 }

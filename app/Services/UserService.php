@@ -100,15 +100,4 @@ class UserService
         return User::whereIn('role', $roles)->FilterByAttribute($request, ['first_name', 'last_name', 'email'])
         ->ApplySorting($request->sort, config('sort.user'))->paginate(15)->appends(['sort' => $request->sort]);
     }
-
-    public function getUserBooks(User $user)
-    {
-        return BookLoan::with(['book', 'user:id,first_name,last_name'])->where('user_id', $user->id)
-        ->latest()->paginate(15);
-    }
-
-    public function userBooksNumber(User $user)
-    {
-        return $this->getUserBooks($user)->total();
-    }
 }

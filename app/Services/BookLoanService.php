@@ -48,6 +48,10 @@ class BookLoanService
     {
         $credentials['status'] = $this->updateBookLoanStatus($bookLoan);
         $bookLoan->update($credentials);
+    public function getUserBooks(User $user)
+    {
+        return BookLoan::with(['book', 'user:id,first_name,last_name'])->where('user_id', $user->id)
+        ->latest()->paginate(15);
     }
 
     public function updateBookLoanStatus(BookLoan $bookLoan): string
