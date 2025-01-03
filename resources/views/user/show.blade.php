@@ -47,6 +47,23 @@
                 Book Loans of {{ $user->first_name }} {{ $user->last_name }}
             </a>
         </h1>
+        @forelse ($user->notifications as $notification)
+            <div class="px-4 py-4 bg-red-50 rounded-md my-3 transition-all duration-300 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h1m0 8h.01M12 9v3m-6.93 4.36a9 9 0 1111.32 0M15 3h-6a2 2 0 00-2 2v2a2 2 0 002 2h6a2 2 0 002-2V5a2 2 0 00-2-2z" />
+                    </svg>
+                    <div>
+                        <strong class="text-lg text-red-600">{{ $notification->data['fee'] }} $</strong>
+                        <p class="text-sm text-black"><strong>Book Title:</strong> {{ $notification->data['book_title'] }}</p>
+                    </div>
+                </div>
+
+                <x-delete :action="route('notifications.destroy', $notification)" name="overdue fee" />
+            </div>
+        @empty
+            <p class="px-4 py-4 text-black">No notifications available.</p>
+        @endforelse
     </div>
 </x-role-access>
 

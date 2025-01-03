@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\BookLoanController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Models\BookLoan;
@@ -66,11 +67,10 @@ Route::middleware('auth')->group(function(){
         Route::resource('users', UserController::class)->only(['show', 'edit', 'update', 'destroy']);
     });
 
-    Route::get('/notifications', [UserController::class, 'showNotifications'])
-    ->name('users.notifications');
-
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::resource('notifications', NotificationController::class)
+    ->only(['index', 'destroy']);
 });
 
 Route::prefix('/legal')->group(function(){
