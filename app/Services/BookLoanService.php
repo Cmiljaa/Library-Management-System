@@ -29,25 +29,34 @@ class BookLoanService
     {
         $user = User::findOrFail($credentials['user_id']);
         $book = Book::findOrFail($credentials['book_id']);
+
+        $this->checkUserOverdueFees($user);
+
         if(!$book->availability)
         {
             throw new \Exception("Book is not available");
         }
-        elseif($this->userService->userBooksNumber($user) >= 3)
+        elseif($this->getUserBooks($user)->total() >= 3)
         {
             throw new \Exception("User already has 3 book loans");
         }
         else
         {
-            BookLoan::create($credentials);
             $this->bookService->changeAvailability($book);
+            BookLoan::create($credentials);
         }
     }
 
     public function updateBookLoan(array $credentials, BookLoan $bookLoan): void
     {
-        $credentials['status'] = $this->updateBookLoanStatus($bookLoan);
+        $this->checkUserOverdueFees(User::findOrFail($credentials['user_id']));
+
         $bookLoan->update($credentials);
+
+        $bookLoan->status = $this->updateBookLoanStatus($bookLoan);
+        $bookLoan->save();
+    }
+
     public function getUserBooks(User $user)
     {
         return BookLoan::with(['book', 'user:id,first_name,last_name'])->where('user_id', $user->id)
@@ -63,6 +72,14 @@ class BookLoanService
         else
         {
             return 'returned';
+        }
+    }
+
+    private function checkUserOverdueFees(User $user)
+    {
+        if($user->notifications->count() > 0)
+        {
+            throw new \Exception("User needs to pay all overdue fees");
         }
     }
 }
