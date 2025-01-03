@@ -4,9 +4,7 @@ namespace App\Services;
 
 use App\Models\BookLoan;
 use App\Models\User;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -112,10 +110,5 @@ class UserService
     public function userBooksNumber(User $user)
     {
         return $this->getUserBooks($user)->total();
-    }
-
-    public function getUserNotifications()
-    {
-        return Auth::user()->notifications;
     }
 }

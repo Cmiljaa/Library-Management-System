@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Services\NotificationService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -61,10 +62,5 @@ class UserController extends Controller
     {
         $bookLoans = $this->userService->getUserBooks($user);
         return view('user.book_loans', ['book_loans' => $bookLoans, 'user' => $user]);
-    }
-
-    public function showNotifications()
-    {
-        return view('user.notifications', ['notifications' => $this->userService->getUserNotifications()]);
     }
 }
