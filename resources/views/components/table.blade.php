@@ -1,6 +1,6 @@
 <div class="container mx-auto max-w-7xl py-10 mb-36">
 
-    @if ($pagination->count())
+    @if ($pagination->count() && $sortOptions != [])
         <form action="{{ $action }}">
             <div class="w-full max-w-md md:w-auto mb-5">
                 <x-label for="sort">Sort</x-label>

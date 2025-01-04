@@ -10,7 +10,7 @@ class Table extends Component
 {
     public function __construct(
         public $action,
-        public array $sortOptions = [],
+        public ?array $sortOptions = [],
         public array $fields,
         public $pagination
     )
