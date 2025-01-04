@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\BookLoan;
 use App\Notifications\OverdueBookNotification;
+use App\Services\SettingsService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -13,13 +14,21 @@ class CheckBookLoan extends Command
 
     protected $description = 'Check if a book loan is overdue and take some actions';
 
+    protected $settingsService;
+
+    public function __construct(SettingsService $settingsService)
+    {
+        parent::__construct();
+        $this->settingsService = $settingsService;
+    }
+
     public function handle()
     {
         $bookLoans = BookLoan::whereNull('return_date')->with(['book:id,title'])->get();
 
         foreach($bookLoans as $bookLoan)
         {
-            $borrowDate = Carbon::parse($bookLoan->borrow_date)->copy()->addMonth();
+            $borrowDate = Carbon::parse($bookLoan->borrow_date)->copy()->addDays($this->settingsService->getSettingValue('loan_duration'));
 
             if(now() <= $borrowDate)
             {

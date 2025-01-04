@@ -7,16 +7,16 @@ use App\Models\BookLoan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 
 class BookLoanService
 {
-    protected $bookService, $userService;
+    protected $bookService, $userService, $settingsService;
 
-    public function __construct(BookService $bookService, UserService $userService)
+    public function __construct(BookService $bookService, UserService $userService, SettingsService $settingsService)
     {
         $this->bookService = $bookService;
         $this->userService = $userService;
+        $this->settingsService = $settingsService;
     }
 
     public function getAllBookLoans(Request $request)
@@ -36,9 +36,9 @@ class BookLoanService
         {
             throw new \Exception("Book is not available");
         }
-        elseif($this->getUserBooks($user)->total() >= 3)
+        elseif($this->getUserBooks($user)->total() >= $this->settingsService->getSettingValue('max_books'))
         {
-            throw new \Exception("User already has 3 book loans");
+            throw new \Exception("User already has  {$this->settingsService->getSettingValue('max_books')} book loans");
         }
         else
         {
@@ -67,7 +67,7 @@ class BookLoanService
     {
         if($bookLoan->return_date === null)
         {
-            return now() > Carbon::parse($bookLoan->borrow_date)->copy()->addMonth() ? 'overdue' : 'borrowed';
+            return now() > Carbon::parse($bookLoan->borrow_date)->copy()->addDays($this->settingsService->getSettingValue('loan_duration')) ? 'overdue' : 'borrowed';
         }
         else
         {
