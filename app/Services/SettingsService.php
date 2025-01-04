@@ -27,4 +27,14 @@ class SettingsService
         }
 
     }
+
+    public function getAllSettings()
+    {
+        return Setting::latest()->paginate();
+    }
+
+    public function updateSetting(array $credentials, Setting $setting)
+    {
+        $setting->update($credentials);
+    }
 }
