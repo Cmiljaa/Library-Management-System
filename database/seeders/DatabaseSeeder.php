@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Book;
 use App\Models\BookLoan;
 use App\Models\Review;
+use App\Models\Setting;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,6 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $settings = [
+           ['key' => 'loan_duration', 'value' => 28, 'type' => 'integer'],
+           ['key' => 'max_books', 'value' => 3, 'type' => 'integer'],
+        ];
+
         $users = [
             ['email' => 'admin@example.com', 'role' => 'admin'],
             ['email' => 'librarian@example.com', 'role' => 'librarian'],
@@ -24,6 +30,10 @@ class DatabaseSeeder extends Seeder
         
         foreach ($users as $user) {
             User::factory()->create($user);
+        }
+
+        foreach ($settings as $setting) {
+            Setting::create($setting);
         }
 
         $users = User::factory()->count(30)->create();
