@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\BookLoanController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Models\BookLoan;
 use App\Models\Review;
@@ -47,6 +48,12 @@ Route::middleware('auth')->group(function(){
         });
 
         Route::post('', 'store')->name('store');
+    });
+
+    Route::middleware('role:admin')->group(function(){
+
+        Route::resource('settings', SettingController::class)
+        ->only(['index', 'edit', 'update']);
     });
 
     Route::middleware('role:librarian,admin')->group(function(){

@@ -15,7 +15,7 @@
             <x-nav-bar :links="['Home' => route('books.index'), 'Members' => route('users.index'), 'Book Loans' => route('book_loans.index')]" />
                 @break
             @case('admin')
-                <x-nav-bar :links="['Home' => route('books.index'), 'Users' => route('users.index'), 'Book Loans' => route('book_loans.index'), 'Settings' => route('book_loans.index')]" />
+                <x-nav-bar :links="['Home' => route('books.index'), 'Users' => route('users.index'), 'Book Loans' => route('book_loans.index'), 'Settings' => route('settings.index')]" />
                 @break
             @default
                 <x-nav-bar :links="['Home' => route('books.index'), 'My Books' => route('users.book_loans', Auth::user()), 'Notifications' => route('notifications.index')]" />
