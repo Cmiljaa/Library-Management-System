@@ -31,7 +31,7 @@ Route::middleware('guest')->prefix('/auth')->group(function(){
 
     Route::prefix('/google')->controller(GoogleController::class)->group(function(){
     
-        Route::get('', 'redirectToGoogle')->name('auth.google');
+        Route::get('', 'redirectToGoogle')->name('auth.google'); 
     
         Route::get('callback', 'handleGoogleCallback');
     });
@@ -39,14 +39,14 @@ Route::middleware('guest')->prefix('/auth')->group(function(){
 
 Route::middleware('auth')->group(function(){
 
-    Route::middleware('role:member')->controller(ReviewController::class)->group(function() {
+    Route::middleware('role:member')->controller(ReviewController::class)->name('reviews.')->prefix('reviews')->group(function(){
 
-        Route::middleware('can:canAccessReview,review')->group(function(){
-            Route::put('reviews/{review}', 'update')->name('reviews.update');
-            Route::delete('reviews/{review}','destroy')->name('reviews.destroy');
+        Route::middleware('can:canAccessReview,review')->prefix('/{review}')->group(function(){
+            Route::put('', 'update')->name('update');
+            Route::delete('','destroy')->name('destroy');
         });
 
-        Route::post('reviews', 'store')->name('reviews.store');
+        Route::post('', 'store')->name('store');
     });
 
     Route::middleware('role:librarian,admin')->group(function(){
@@ -73,10 +73,10 @@ Route::middleware('auth')->group(function(){
     ->only(['index', 'destroy']);
 });
 
-Route::prefix('/legal')->group(function(){
-    Route::view('privacy_policy', 'legal.privacy_policy')->name('legal.privacy_policy');
+Route::prefix('/legal')->name('legal.')->group(function(){
+    Route::view('privacy_policy', 'legal.privacy_policy')->name('privacy_policy');
 
-    Route::view('terms_and_conditions', 'legal.terms_and_conditions')->name('legal.terms_and_conditions');
+    Route::view('terms_and_conditions', 'legal.terms_and_conditions')->name('terms_and_conditions');
 });
 
 Route::resource('books', BookController::class)
