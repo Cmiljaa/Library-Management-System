@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewService
 {
-    public function getBookReviews(Book $book)
+    public function getBookReviews(Book $book): Review
     {
         return Review::where('book_id', $book->id)->with('user')->latest()->get();
     }
@@ -19,7 +19,7 @@ class ReviewService
         Review::create($credentials);
     }
 
-    public function updateReview(array $credentials, Review $review)
+    public function updateReview(array $credentials, Review $review): void
     {
         $review->update($credentials);
     }

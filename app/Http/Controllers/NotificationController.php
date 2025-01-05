@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
-    protected $notificationService;
+    protected NotificationService $notificationService;
 
     public function __construct(NotificationService $notificationService)
     {

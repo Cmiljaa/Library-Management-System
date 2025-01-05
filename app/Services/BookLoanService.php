@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 
 class BookLoanService
 {
-    protected $bookService, $userService, $settingService;
+    protected BookService $bookService;
+    protected UserService $userService;
+    protected SettingService $settingService;
 
     public function __construct(BookService $bookService, UserService $userService, SettingService $settingService)
     {
@@ -25,7 +27,7 @@ class BookLoanService
         ->applySorting($request->sort, config('sort.book_loan'))->FilterByDate($request)->latest()->paginate(15)->appends(['sort' => $request->sort]);
     }
 
-    public function createBookLoan(array $credentials)
+    public function createBookLoan(array $credentials): void
     {
         $user = User::findOrFail($credentials['user_id']);
         $book = Book::findOrFail($credentials['book_id']);
@@ -75,7 +77,7 @@ class BookLoanService
         }
     }
 
-    private function checkUserOverdueFees(User $user)
+    private function checkUserOverdueFees(User $user): void
     {
         if($user->notifications->count() > 0)
         {

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    protected $userService, $bookLoanService;
+    protected UserService $userService;
+    protected BookLoanService $bookLoanService;
 
     public function __construct(UserService $userService, BookLoanService $bookLoanService)
     {

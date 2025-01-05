@@ -6,13 +6,13 @@ use App\Models\Setting;
 
 class SettingService
 {
-    public function getSettingValue(string $key)
+    public function getSettingValue(string $key): null|int|bool|string
     {
         $setting = Setting::where('key', $key)->first();
 
         if(!$setting)
         {
-            return null;
+            abort(400, "Setting with key '{$key}' not found");
         }
 
         switch ($setting->type) {
@@ -33,7 +33,7 @@ class SettingService
         return Setting::latest()->paginate();
     }
 
-    public function updateSetting(array $credentials, Setting $setting)
+    public function updateSetting(array $credentials, Setting $setting): void
     {
         $setting->update($credentials);
     }

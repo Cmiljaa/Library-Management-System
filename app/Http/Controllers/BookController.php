@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
-use App\Models\Review;
 use App\Services\BookService;
 use App\Services\ReviewService;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    protected $bookService, $reviewService;
+    protected BookService $bookService;
+    protected ReviewService $reviewService;
 
     public function __construct(BookService $bookService, ReviewService $reviewService)
     {

@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookLoanRequest;
 use App\Models\BookLoan;
-use App\Services\BookLoanService as ServicesBookLoanService;
+use App\Services\BookLoanService;
 use App\Services\BookService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class BookLoanController extends Controller
 {
-    protected $bookLoanService, $bookService, $userService;
+    protected BookLoanService $bookLoanService;
+    protected BookService $bookService;
+    protected UserService $userService;
 
-    public function __construct(ServicesBookLoanService $bookLoanService, BookService $bookService, UserService $userService)
+    public function __construct(BookLoanService $bookLoanService, BookService $bookService, UserService $userService)
     {
         $this->bookLoanService = $bookLoanService;
         $this->bookService = $bookService;

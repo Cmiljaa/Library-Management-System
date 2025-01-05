@@ -6,7 +6,7 @@ use Illuminate\Notifications\DatabaseNotification;
 
 class NotificationService
 {
-    public function deleteNotification(DatabaseNotification $notification)
+    public function deleteNotification(DatabaseNotification $notification): void
     {
        $notification->delete();
     }

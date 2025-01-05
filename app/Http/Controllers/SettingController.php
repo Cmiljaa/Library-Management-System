@@ -8,7 +8,7 @@ use App\Services\SettingService;
 
 class SettingController extends Controller
 {
-    protected $settingService;
+    protected SettingService $settingService;
 
     public function __construct(SettingService $settingService)
     {

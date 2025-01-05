@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\BookLoan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
