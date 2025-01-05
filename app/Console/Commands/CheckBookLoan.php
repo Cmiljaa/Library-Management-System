@@ -34,35 +34,33 @@ class CheckBookLoan extends Command
             if (Carbon::now()->timezone(config('app.timezone')) <= $borrowDate) {
                 continue;
             }
+
+            $existingNotification = $bookLoan->user->notifications()
+            ->where('data->book_loan_id', $bookLoan->id)
+            ->first();
             
-            if($bookLoan->status === 'overdue')
+            if($bookLoan->status === 'overdue' && $existingNotification)
             {
-                $this->updateExistingNotification($bookLoan, $borrowDate);
+                $this->updateExistingNotification($existingNotification, $borrowDate);
             }
             else
             {
                 $bookLoan->status = 'overdue';
                 $bookLoan->save();
-                $this->createNotification($bookLoan, $borrowDate);   
+                $this->createNotification($bookLoan, $borrowDate);
             }
         }
     }
 
-    private function updateExistingNotification($bookLoan, $borrowDate)
+    private function updateExistingNotification($existingNotification, $borrowDate)
     {
-        $existingNotification = $bookLoan->user->notifications()
-        ->where('data->book_loan_id', $bookLoan->id)
-        ->first();
+        $fee = $this->calculateFee($borrowDate); 
 
-        if ($existingNotification) {
-            $fee = $this->calculateFee($borrowDate); 
-
-            $existingNotification->update([
-                'data' => array_merge($existingNotification->data, [
-                    'fee' => $fee,
-                ]),
-            ]);
-        }
+        $existingNotification->update([
+            'data' => array_merge($existingNotification->data, [
+                'fee' => $fee,
+            ]),
+        ]);
     }
 
     private function createNotification($bookLoan, $borrowDate)
@@ -73,6 +71,6 @@ class CheckBookLoan extends Command
 
     public function calculateFee($borrowDate)
     {
-        return round(now()->diffInDays($borrowDate) * 0.5, 1);
+        return round(now()->diffInDays($borrowDate)) / 2;
     }
 }

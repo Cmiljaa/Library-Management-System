@@ -9,4 +9,4 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Schedule::command('check:book_loan')->daily();
+Schedule::command('check:book_loan')->dailyAt('08:00')->timezone('Europe/Belgrade');
