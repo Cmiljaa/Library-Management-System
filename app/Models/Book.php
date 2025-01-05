@@ -24,7 +24,7 @@ class Book extends Model
         return $this->hasMany(BookLoan::class);
     }
     
-    public function scopeFilterByAttribute($query, Request $request, array $attributes)
+    public function scopeFilterByAttribute($query, Request $request, array $attributes): void
     {
         foreach ($attributes as $key)
         {
@@ -39,9 +39,10 @@ class Book extends Model
     {
         if($request->filled('search'))
         {
-            $query->where('title', 'like', '%' . $request->search . '%')
-            ->orWhere('description', 'like', '%' . $request->search . '%')
-            ->orWhere('author', 'like', '%' . $request->search . '%');;
+            $search = '%' . $request->search . '%';
+            $query->where('title', 'like', $search)
+            ->orWhere('description', 'like', $search)
+            ->orWhere('author', 'like', $search);
         }
     }
 
