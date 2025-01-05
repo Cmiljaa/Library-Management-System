@@ -28,10 +28,10 @@ class CheckBookLoan extends Command
 
         foreach($bookLoans as $bookLoan)
         {
-            $borrowDate = Carbon::parse($bookLoan->borrow_date)->copy()->addDays($this->settingService->getSettingValue('loan_duration'));
+            $borrowDate = Carbon::parse($bookLoan->borrow_date)->copy()->addDays($this->settingService->getSettingValue('loan_duration'))
+            ->timezone(config('app.timezone'));
 
-            if(now() <= $borrowDate)
-            {
+            if (Carbon::now()->timezone(config('app.timezone')) <= $borrowDate) {
                 continue;
             }
             

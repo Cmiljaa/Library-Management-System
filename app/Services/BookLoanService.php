@@ -69,7 +69,8 @@ class BookLoanService
     {
         if($bookLoan->return_date === null)
         {
-            return now() > Carbon::parse($bookLoan->borrow_date)->copy()->addDays($this->settingService->getSettingValue('loan_duration')) ? 'overdue' : 'borrowed';
+            return Carbon::now()->timezone(config('app.timezone')) > Carbon::parse($bookLoan->borrow_date)->copy()->addDays($this->settingService->getSettingValue('loan_duration'))
+            ->timezone(config('app.timezone')) ? 'overdue' : 'borrowed';
         }
         else
         {
