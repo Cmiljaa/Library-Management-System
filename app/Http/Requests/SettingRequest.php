@@ -23,7 +23,7 @@ class SettingRequest extends FormRequest
         switch ($this->route('setting')->type)
         {
             case 'integer':
-                return 'required|integer|min:1';
+                return 'required|integer|min:2';
 
             case 'string':
                 return 'required|string|min:1|max:255';

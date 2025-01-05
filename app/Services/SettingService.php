@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Setting;
 
-class SettingsService
+class SettingService
 {
     public function getSettingValue(string $key)
     {

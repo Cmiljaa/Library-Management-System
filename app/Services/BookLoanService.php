@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 
 class BookLoanService
 {
-    protected $bookService, $userService, $settingsService;
+    protected $bookService, $userService, $settingService;
 
-    public function __construct(BookService $bookService, UserService $userService, SettingsService $settingsService)
+    public function __construct(BookService $bookService, UserService $userService, SettingService $settingService)
     {
         $this->bookService = $bookService;
         $this->userService = $userService;
-        $this->settingsService = $settingsService;
+        $this->settingService = $settingService;
     }
 
     public function getAllBookLoans(Request $request)
@@ -36,9 +36,9 @@ class BookLoanService
         {
             throw new \Exception("Book is not available");
         }
-        elseif($this->getUserBooks($user)->total() >= $this->settingsService->getSettingValue('max_books'))
+        elseif($this->getUserBooks($user)->total() >= $this->settingService->getSettingValue('max_books'))
         {
-            throw new \Exception("User already has  {$this->settingsService->getSettingValue('max_books')} book loans");
+            throw new \Exception("User already has  {$this->settingService->getSettingValue('max_books')} book loans");
         }
         else
         {
@@ -67,7 +67,7 @@ class BookLoanService
     {
         if($bookLoan->return_date === null)
         {
-            return now() > Carbon::parse($bookLoan->borrow_date)->copy()->addDays($this->settingsService->getSettingValue('loan_duration')) ? 'overdue' : 'borrowed';
+            return now() > Carbon::parse($bookLoan->borrow_date)->copy()->addDays($this->settingService->getSettingValue('loan_duration')) ? 'overdue' : 'borrowed';
         }
         else
         {
