@@ -71,6 +71,6 @@ class CheckBookLoan extends Command
 
     public function calculateFee($borrowDate)
     {
-        return round(now()->diffInDays($borrowDate)) / 2;
+        return rtrim(rtrim(number_format(round(now()->startOfDay()->diffInDays($borrowDate) * $this->settingService->getSettingValue('overdue_fee') * 2 / 2, 2), 2, '.', ''), '0'), '.');
     }
 }
