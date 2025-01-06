@@ -6,7 +6,7 @@ use App\Models\Setting;
 
 class SettingService
 {
-    public function getSettingValue(string $key): null|int|bool|string
+    public function getSettingValue(string $key): int|bool|float|string
     {
         $setting = Setting::where('key', $key)->first();
 
@@ -21,6 +21,9 @@ class SettingService
 
             case 'boolean':
                     return filter_var($setting->value, FILTER_VALIDATE_BOOLEAN);
+
+            case 'decimal':
+                    return (float) $setting->value;
 
             default:
                 return $setting->value;

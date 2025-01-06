@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $settings = [
            ['key' => 'loan_duration', 'value' => 28, 'type' => 'integer'],
            ['key' => 'max_books', 'value' => 3, 'type' => 'integer'],
+           ['key' => 'overdue_fee', 'value' => 0.5, 'type' => 'decimal']
         ];
 
         $users = [

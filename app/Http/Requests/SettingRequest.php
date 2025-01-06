@@ -27,6 +27,9 @@ class SettingRequest extends FormRequest
 
             case 'string':
                 return 'required|string|min:1|max:255';
+
+            case 'decimal':
+                return 'required|regex:/^\d+(\.\d{1,2})?$/|min:0|max:100';
             
             default:
                 return 'required';
