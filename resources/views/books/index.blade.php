@@ -77,7 +77,7 @@
                             <x-star :number="$book->reviews_avg_rating" />
                         </span>
                         <span class="text-black font-semibold text-base">
-                            {{ number_format($book->reviews_avg_rating, 1) }} / 5
+                            {{ number_format($book->reviews_avg_rating, 1) }} / {{ $book->reviews_count }}
                         </span>
                     </div>
                 @endif

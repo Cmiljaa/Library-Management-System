@@ -9,7 +9,8 @@ class BookService
 {
     public function getAllBooks(Request $request, $available = null)
     {
-        $query = Book::query()->withAvg('reviews', 'rating')->FilterBySearch($request)->FilterByAttribute($request, ['genre', 'language'])
+        $query = Book::query()->withAvg('reviews', 'rating')->withCount(['reviews', 'book_loans'])->
+        FilterBySearch($request)->FilterByAttribute($request, ['genre', 'language'])
         ->when(!is_null($available), function ($query) use ($available) {
             $query->where('availability', (bool)$available);
         })->latest();
