@@ -34,6 +34,18 @@
 </div>
 
 <div class="container mx-auto p-4 space-y-6">
+    <div class="w-full max-w-2xl mx-auto">
+        @if ($books->count())
+            <form action="{{ route('books.index') }}">
+                <div class="w-full max-w-md md:w-auto mb-5">
+                    <x-input name="genre" value="{{ request('genre') }}" type="hidden" />
+                    <x-input name="language" value="{{ request('language') }}" type="hidden" />
+                    <x-label for="sort">Sort</x-label>
+                    <x-select name="sort" selected="created_at, asc" id="sort" onchange="this.form.submit()" :array="config('sort.book')" />
+                </div>
+            </form>
+        @endif
+    </div>
     @forelse ($books as $book)
         <div class="bg-white shadow-md rounded-lg p-4 w-full max-w-2xl mx-auto">
             <h2 class="text-2xl font-bold text-gray-900 mb-2 tracking-wide text-center sm:text-left">

@@ -13,11 +13,14 @@ class BookService
         FilterBySearch($request)->FilterByAttribute($request, ['genre', 'language'])
         ->when(!is_null($available), function ($query) use ($available) {
             $query->where('availability', (bool)$available);
-        })->latest();
+        })->applySorting($request->sort, config('sort.book'))->latest();
 
-        return $query->paginate(15);
+        $query->SortBooks($request);
+
+        return $query->paginate(15)->appends(['sort' => $request->sort]);
     }
 
+    
     public function createBook(array $credentials): Book
     {
         return Book::create($credentials);
