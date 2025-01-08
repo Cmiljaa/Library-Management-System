@@ -60,7 +60,7 @@
                 <span class="flex text-2xl">
                     <x-star :number="$reviews->avg('rating')" />
                 </span>
-                <span class="text-black font-semibold text-base">{{ number_format($reviews->avg('rating'), 1) }} / 5</span>
+                <span class="text-black font-semibold text-base">{{ number_format($reviews->avg('rating'), 1) }} / {{ $reviews->count() }}</span>
             </div>
         @endif
     </div>

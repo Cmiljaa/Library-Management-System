@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewService
 {
-    public function getBookReviews(Book $book): Review
+    public function getBookReviews(Book $book)
     {
         return Review::where('book_id', $book->id)->with('user')->latest()->get();
     }
