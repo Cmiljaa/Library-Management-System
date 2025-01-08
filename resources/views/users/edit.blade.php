@@ -21,6 +21,7 @@
             <x-label for="email">Email Address</x-label>
             <x-input name="email" id="email" type="email" placeholder="johndoe@gmail.com" value="{{ $user->email }}" required />
         </div>
+
         
         <div>
             <x-label for="phone">Phone</x-label>

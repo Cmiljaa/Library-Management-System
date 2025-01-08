@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        return view('user.index', ['users' => $this->userService->getUsersByRoles($request, Auth::user()->role === 'admin' ? ['member', 'librarian'] : ['member'])]);
+        return view('users.index', ['users' => $this->userService->getUsersByRoles($request, Auth::user()->role === 'admin' ? ['member', 'librarian'] : ['member'])]);
     }
 
     public function create()
@@ -37,13 +37,13 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('user.show', ['user' => $user]);
+        return view('users.show', ['user' => $user]);
     }
 
     public function edit(User $user)
     {
         $this->userService->googleUser($user);
-        return view('user.edit', ['user' => $user]);
+        return view('users.edit', ['user' => $user]);
     }
 
     public function update(RegisterRequest $request, User $user)
@@ -61,6 +61,6 @@ class UserController extends Controller
 
     public function userBookLoans(User $user)
     {
-        return view('user.book_loans', ['book_loans' => $this->bookLoanService->getUserBooks($user), 'user' => $user]);
+        return view('users.book_loans', ['book_loans' => $this->bookLoanService->getUserBooks($user), 'user' => $user]);
     }
 }

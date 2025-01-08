@@ -18,7 +18,7 @@ class NotificationController extends Controller
 
     public function index()
     {
-        return view('user.notifications', ['notifications' => Auth::user()->notifications]);
+        return view('users.notifications', ['notifications' => Auth::user()->notifications]);
     }
 
     public function destroy(DatabaseNotification $notification)

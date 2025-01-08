@@ -29,7 +29,7 @@
             @if ($user->google_id === null)
                 <a href="{{ route('users.edit', $user) }}">
                     <x-button>
-                        Update Profile
+                        Edit Profile
                     </x-button>
                 </a>
             @endif
