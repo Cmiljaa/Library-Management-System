@@ -96,7 +96,10 @@ class UserService
 
     public function getUsersByRoles(Request $request, array $roles = ['admin', 'librarian', 'member'])
     {
-        return User::whereIn('role', $roles)->FilterByAttribute($request, ['first_name', 'last_name', 'email'])
-        ->ApplySorting($request->sort, config('sort.user'))->paginate(15)->appends(['sort' => $request->sort]);
+        return User::whereIn('role', $roles)
+        ->FilterByAttribute($request, ['first_name', 'last_name', 'email'])
+        ->ApplySorting($request->sort, config('sort.user'))
+        ->paginate(15)
+        ->appends($request->only(['sort', 'first_name', 'last_name', 'email']));
     }
 }
