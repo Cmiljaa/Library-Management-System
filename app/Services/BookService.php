@@ -9,18 +9,19 @@ class BookService
 {
     public function getAllBooks(Request $request, $available = null)
     {
-        $query = Book::query()->withAvg('reviews', 'rating')->withCount(['reviews', 'book_loans'])->
-        FilterBySearch($request)->FilterByAttribute($request, ['genre', 'language'])
-        ->when(!is_null($available), function ($query) use ($available) {
-            $query->where('availability', (bool)$available);
-        })->applySorting($request->sort, config('sort.book'))->latest();
-
-        $query->SortBooks($request);
-
-        return $query->paginate(15)->appends(['sort' => $request->sort]);
+        return Book::query()
+            ->withAvg('reviews', 'rating')
+            ->withCount(['reviews', 'book_loans'])
+            ->filterBySearch($request)
+            ->filterByAttribute($request, ['genre', 'language'])
+            ->when(!is_null($available), function ($query) use ($available) {
+                $query->where('availability', (bool) $available);
+            })
+            ->applySorting($request->sort, config('sort.book'))
+            ->paginate(15)
+            ->appends($request->only(['genre', 'language', 'search', 'sort']));
     }
 
-    
     public function createBook(array $credentials): Book
     {
         return Book::create($credentials);
