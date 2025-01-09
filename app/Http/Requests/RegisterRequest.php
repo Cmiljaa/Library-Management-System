@@ -25,6 +25,10 @@ class RegisterRequest extends FormRequest
 
         if($this->getMethod() === 'PUT')
         {
+            if(Auth::user()->role === 'admin')
+            {
+                $rules += ['role' => 'required|string|in:' . implode(',', array_keys(config('user_roles')))];
+            }
             $user = $this->route('user');
             $rules['email'] = $rules['email']  . $user->id;
             $rules['phone'] = $rules['phone']  . $user->id;
