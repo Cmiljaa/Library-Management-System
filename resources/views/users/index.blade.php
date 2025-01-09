@@ -44,13 +44,7 @@
                 @endif
             </td>
             <td class="p-4 border border-gray-400 text-center">
-                <form method="POST" action="{{ route('users.destroy', $user) }}" class="inline-block">
-                    @method('DELETE')
-                    @csrf
-                    <x-button class="text-white  rounded-lg !bg-red-600 hover:!bg-transparent hover:!text-red-600 hover:!border-red-600 focus:outline-none focus:ring-2 focus:!ring-red-600">
-                        Delete
-                    </x-button>
-                </form>
+                <x-delete :action="route('users.destroy', $user)" name="profile" />
             </td>
         </tr>
     @empty
