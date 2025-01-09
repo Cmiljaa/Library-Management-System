@@ -22,6 +22,12 @@
             <x-input name="email" id="email" type="email" placeholder="johndoe@gmail.com" value="{{ $user->email }}" required />
         </div>
 
+        <x-role-access :roles="['admin']">
+            <div>
+                <x-label class="mb-2" for="role">Role</x-label>
+                <x-select name="role" selected="{{ $user->role }}" :array="config('user_roles')" required />
+            </div>
+        </x-role-access>
         
         <div>
             <x-label for="phone">Phone</x-label>
