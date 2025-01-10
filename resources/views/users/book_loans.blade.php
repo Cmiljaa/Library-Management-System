@@ -14,7 +14,7 @@
     </div>
 </x-role-access>
 
-<x-table :fields="['book', 'borrow date', 'return date', 'status']" :pagination="$book_loans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
+<x-table :fields="['book', 'borrow date', 'return date', 'status', 'show']" :pagination="$book_loans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
     @forelse ($book_loans as $book_loan)
         <tr class="bg-white hover:bg-gray-100">
             <td class="p-4 border border-gray-400 hover:underline"> <a href="{{ route('books.show', $book_loan->book_id) }}" class=""> {{ $book_loan->book->title }}</a></td>
@@ -26,6 +26,13 @@
                 <span class="{{ $book_loan->status === 'overdue' ? 'text-red-600' : ($book_loan->status === 'borrowed' ? 'text-blue-600' : '') }}">
                     {{ Str::ucfirst($book_loan->status) }}
                 </span>
+            </td>
+            <td class="p-4 border border-gray-400 text-center">
+                <a href="{{ route('book_loans.show', $book_loan) }}">
+                    <x-button>
+                        Show
+                    </x-button>
+                </a>
             </td>
         </tr>
     @empty
