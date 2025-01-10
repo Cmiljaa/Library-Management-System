@@ -6,6 +6,7 @@ use App\Http\Requests\BookLoanRequest;
 use App\Models\BookLoan;
 use App\Services\BookLoanService;
 use App\Services\BookService;
+use App\Services\NotificationService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -14,17 +15,24 @@ class BookLoanController extends Controller
     protected BookLoanService $bookLoanService;
     protected BookService $bookService;
     protected UserService $userService;
+    protected NotificationService $notificationService;
 
-    public function __construct(BookLoanService $bookLoanService, BookService $bookService, UserService $userService)
+    public function __construct(BookLoanService $bookLoanService, BookService $bookService, UserService $userService, NotificationService $notificationService)
     {
         $this->bookLoanService = $bookLoanService;
         $this->bookService = $bookService;
         $this->userService = $userService;
+        $this->notificationService = $notificationService;
     }
     
     public function index(Request $request)
     {
         return view('book_loans.index', ['book_loans' => $this->bookLoanService->getAllBookLoans($request)]);
+    }
+
+    public function show(BookLoan $bookLoan)
+    {
+        return view('book_loans.show', ['book_loan' => $bookLoan, 'notification' => $this->notificationService->getNotification($bookLoan->id, $bookLoan->user)]);
     }
 
     public function create(Request $request)
