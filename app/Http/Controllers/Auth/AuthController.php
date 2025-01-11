@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\UserService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class AuthController extends Controller
 {
@@ -16,17 +18,17 @@ class AuthController extends Controller
         $this->userService = $userService;
     }
 
-    public function loginForm()
+    public function loginForm(): View
     {
         return view('auth.login');
     }
 
-    public function registerForm()
+    public function registerForm(): View
     {
         return view('auth.register');
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): RedirectResponse
     {
         if($this->userService->loginUser($request->validated()))
         {
@@ -36,7 +38,7 @@ class AuthController extends Controller
         return back()->with('error', 'Invalid credentials');
     }
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): RedirectResponse
     {
         try
         {
@@ -51,7 +53,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
         $this->userService->logoutUser();
         return redirect(route('auth.login'))->with('success', 'Logged out successfully');

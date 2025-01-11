@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
@@ -16,12 +17,12 @@ class GoogleController extends Controller
         $this->userService = $userService;
     }
 
-    public function redirectToGoogle()
+    public function redirectToGoogle(): RedirectResponse
     {
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback()
+    public function handleGoogleCallback(): RedirectResponse
     {
         try
         {
