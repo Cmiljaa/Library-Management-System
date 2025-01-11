@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Http\Request;
 class Book extends Model
 {
     /** @use HasFactory<\Database\Factories\BookFactory> */
-    use HasFactory, Sortable;
+    use HasFactory, Sortable, Filterable;
 
     protected $fillable = ['title', 'author', 'genre', 'language', 'availability', 'description'];
 
@@ -23,17 +24,6 @@ class Book extends Model
     public function book_loans(): HasMany
     {
         return $this->hasMany(BookLoan::class);
-    }
-    
-    public function scopeFilterByAttribute($query, Request $request, array $attributes): void
-    {
-        foreach ($attributes as $key)
-        {
-            if($request->filled($key))
-            {
-                $query->where($key, $request->$key);
-            }
-        }
     }
 
     public function scopeFilterBySearch($query, Request $request)

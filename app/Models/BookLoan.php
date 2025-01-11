@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Http\Request;
 class BookLoan extends Model
 {
     /** @use HasFactory<\Database\Factories\BookLoanFactory> */
-    use HasFactory, Sortable;
+    use HasFactory, Sortable, Filterable;
 
     protected $fillable = ['user_id', 'book_id', 'status', 'borrow_date', 'return_date', 'status'];
 
@@ -40,18 +41,6 @@ class BookLoan extends Model
         }
         else if ($request->filled('return_date')) {
             $query->where('return_date', '<=', $returnDate);
-        }
-    }
-
-
-    public function scopeFilterByAttribute($query, Request $request, array $attributes)
-    {
-        foreach ($attributes as $key)
-        {
-            if($request->filled($key))
-            {
-                $query->where($key, $request->$key);
-            }
         }
     }
 
