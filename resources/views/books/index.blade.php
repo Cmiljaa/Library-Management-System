@@ -59,24 +59,24 @@
                     </p>
                 </div>
 
-                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
-                    <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm w-full sm:w-auto">
+                <div class="flex space-x-2">
+                    <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm">
                         <a href="?genre={{ $book->genre }}">
                             {{ Str::title(str_replace('_', ' ', $book->genre)) }}
                         </a>
                     </button>
-                    
-                    <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm w-full sm:w-auto">
+                
+                    <button class="rounded-sm text-black hover:bg-black hover:text-white px-3 py-1 border border-black transition-colors duration-300 ease-in-out text-sm">
                         <a href="?language={{ $book->language }}">
-                            {{ Str::title( $book->language) }}
+                            {{ Str::title($book->language) }}
                         </a>
-                    </button>                                 
+                    </button>
                 </div>
             </div>
 
             <div class="mt-4 flex justify-between items-center sm:flex-row flex-col text-center sm:text-left">
                 <div>
-                    <a href="/books/{{ $book->id }}" class="inline-block">
+                    <a href="{{ route('books.show', $book) }}" class="inline-block">
                         <x-button>
                             Show
                         </x-button>

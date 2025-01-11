@@ -1,9 +1,11 @@
 <nav x-data="{ open: false }" class="bg-white sticky top-0 z-50 shadow-md border-b border-gray-200">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div class="flex items-center">
-            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="{{ route('books.index') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <span class="text-2xl font-sans font-bold text-gray-800 text-center tracking-wide">
-                    Library Management System
+                    <span class="block xs:hidden">LMS</span>
+            
+                    <span class="hidden xs:block">Library Management System</span>
                 </span>
             </a>
         </div>
