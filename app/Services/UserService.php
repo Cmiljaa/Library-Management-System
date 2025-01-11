@@ -89,7 +89,10 @@ class UserService
 
     public function deleteUser(User $user): void
     {
-        request()->session()->invalidate();
+        if(Auth::user()->id === $user->id)
+        {
+            request()->session()->invalidate();
+        }
 
         $user->delete();
     }

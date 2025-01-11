@@ -10,7 +10,7 @@ class ReviewService
 {
     public function getBookReviews(Book $book)
     {
-        return Review::where('book_id', $book->id)->with('user')->latest()->get();
+        return $book->reviews()->with('user')->latest()->get();
     }
 
     public function createReview(array $credentials): void
