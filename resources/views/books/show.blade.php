@@ -56,8 +56,8 @@
         </x-role-access>
         
         @if(!$reviews->isEmpty())
-            <div class="flex items-center gap-2 mt-4 sm:mt-0">
-                <span class="flex text-2xl">
+            <div class="flex items-center gap-2 mt-4 sm:mt-0 text-2xl">
+                <span class="flex">
                     <x-star :number="$reviews->avg('rating')" />
                 </span>
                 <span class="text-black font-semibold text-base">{{ number_format($reviews->avg('rating'), 1) }} / {{ $reviews->count() }}</span>

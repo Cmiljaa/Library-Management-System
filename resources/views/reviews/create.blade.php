@@ -21,8 +21,7 @@
                 <x-input type="hidden" name="book_id" value="{{ $book->id }}" />
                 
                 <div>
-                    <x-label for="rating">Rating</x-label>
-                    <x-input type="number" name="rating" id="rating" min="1" max="5" required />
+                    <x-star :interactive="true" />
                 </div>
 
                 <div>
