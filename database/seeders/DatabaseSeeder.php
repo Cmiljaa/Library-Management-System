@@ -5,9 +5,7 @@ namespace Database\Seeders;
 use App\Models\Book;
 use App\Models\BookLoan;
 use App\Models\Review;
-use App\Models\Setting;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,30 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $settings = [
-           ['key' => 'loan_duration', 'value' => 28, 'type' => 'integer'],
-           ['key' => 'max_books', 'value' => 3, 'type' => 'integer'],
-           ['key' => 'overdue_fee', 'value' => 0.5, 'type' => 'decimal']
-        ];
+        $this->call([
+            SettingSeeder::class,
+            UserSeeder::class
+        ]);
 
-        $users = [
-            ['email' => 'admin@example.com', 'role' => 'admin'],
-            ['email' => 'librarian@example.com', 'role' => 'librarian'],
-            ['email' => 'member@example.com', 'role' => 'member'],
-        ];
-        
-        foreach ($users as $user) {
-            User::factory()->create($user);
-        }
+        $users = User::factory()->count(300)->create();
 
-        foreach ($settings as $setting) {
-            Setting::create($setting);
-        }
-
-        $users = User::factory()->count(30)->create();
-
-        Book::factory()->count(100)->create()->each(function($book) use ($users) {
-            $shuffledUsers = $users->shuffle()->take(rand(1, 4));
+        Book::factory()->count(1000)->create()->each(function($book) use ($users) {
+            $shuffledUsers = $users->shuffle($users)->take(rand(1, 4));
 
             $shuffledUsers->each(function ($user) use ($book) {
                 Review::factory()->create([
