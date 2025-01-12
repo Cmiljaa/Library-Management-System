@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 class Star extends Component
 {
     
-    public function __construct(public float $number)
+    public function __construct(public float $number = 0, public $interactive = false)
     {
         //
     }
