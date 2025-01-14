@@ -9,7 +9,7 @@
             </h1>
         </div>
         <p class="text-base text-gray-500 mt-2 italic">
-            <a href="{{ route('users.show', $book_loan->user) }}">Borrowed by: {{ $book_loan->user->first_name }} {{ $book_loan->user->last_name }}</a>
+            <a href="{{ route('users.show', $bookLoan->user) }}">Borrowed by: {{ $bookLoan->user->first_name }} {{ $bookLoan->user->last_name }}</a>
         </p>
     </div>
     
@@ -19,15 +19,15 @@
             <ul class="text-gray-700 space-y-4">
                 <li>
                     <span class="font-bold text-gray-900">Title:</span> 
-                    {{ $book_loan->book->title }}
+                    {{ $bookLoan->book->title }}
                 </li>
                 <li>
                     <span class="font-bold text-gray-900">Author:</span> 
-                    {{ $book_loan->book->author }}
+                    {{ $bookLoan->book->author }}
                 </li>
                 <li>
                     <span class="font-bold text-gray-900">Genre:</span> 
-                    {{ Str::ucfirst($book_loan->book->genre) }}
+                    {{ Str::ucfirst(Str::replace('_', ' ', $bookLoan->book->genre)) }}
                 </li>
             </ul>
         </div>
@@ -37,16 +37,16 @@
             <ul class="text-gray-700 space-y-4">
                 <li>
                     <span class="font-bold text-gray-900">Borrow Date:</span> 
-                    {{ Carbon\Carbon::parse($book_loan->borrow_date)->format('jS F, Y') ?? '' }}
+                    {{ Carbon\Carbon::parse($bookLoan->borrow_date)->format('jS F, Y') ?? '' }}
                 </li>
                 <li>
                     <span class="font-bold text-gray-900">Return Date:</span> 
-                    {{ $book_loan->return_date ? Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') : 'Not returned yet'}}
+                    {{ $bookLoan->return_date ? Carbon\Carbon::parse($bookLoan->return_date)->format('jS F, Y') : 'Not returned yet'}}
                 </li>
                 <li>
                     <span class="font-bold text-gray-900">Status:</span> 
-                    <span class="{{ $book_loan->status === 'overdue' ? 'text-red-600' : ($book_loan->status === 'borrowed' ? 'text-blue-600' : '') }}">
-                        {{ Str::ucfirst($book_loan->status) }}
+                    <span class="{{ $bookLoan->status === 'overdue' ? 'text-red-600' : ($bookLoan->status === 'borrowed' ? 'text-blue-600' : '') }}">
+                        {{ Str::ucfirst($bookLoan->status) }}
                     </span>
                 </li>
             </ul>
@@ -61,7 +61,7 @@
         </a>
 
         <x-role-access :roles="['librarian', 'admin']">
-            <a href="{{ route('book_loans.edit', $book_loan) }}">
+            <a href="{{ route('book_loans.edit', $bookLoan) }}">
                 <x-button>
                     Edit Loan
                 </x-button>

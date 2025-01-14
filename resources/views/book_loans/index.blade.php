@@ -43,18 +43,18 @@
     
 </div>
 
-<x-table :fields="['user', 'book', 'status', 'show']" :pagination="$book_loans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
-    @forelse ($book_loans as $book_loan)
+<x-table :fields="['user', 'book', 'status', 'show']" :pagination="$bookLoans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
+    @forelse ($bookLoans as $bookLoan)
         <tr class="bg-white hover:bg-gray-100">
-            <td class="p-4 border border-gray-400 hover:underline"><a href="{{ route('users.book_loans', $book_loan->user_id) }}">{{ $book_loan->user->last_name }} {{ $book_loan->user->first_name }}</a></td>
-            <td class="p-4 border border-gray-400 hover:underline"><a href="{{ route('books.show', $book_loan->book_id) }}">{{ $book_loan->book->title }}</a></td>
+            <td class="p-4 border border-gray-400 hover:underline"><a href="{{ route('users.book_loans', $bookLoan->user_id) }}">{{ $bookLoan->user->last_name }} {{ $bookLoan->user->first_name }}</a></td>
+            <td class="p-4 border border-gray-400 hover:underline"><a href="{{ route('books.show', $bookLoan->book_id) }}">{{ $bookLoan->book->title }}</a></td>
             <td class="p-4 border border-gray-400">
-                <span class="{{ $book_loan->status === 'overdue' ? 'text-red-600' : ($book_loan->status === 'borrowed' ? 'text-blue-600' : '') }}">
-                    {{ Str::ucfirst($book_loan->status) }}
+                <span class="{{ $bookLoan->status === 'overdue' ? 'text-red-600' : ($bookLoan->status === 'borrowed' ? 'text-blue-600' : '') }}">
+                    {{ Str::ucfirst($bookLoan->status) }}
                 </span>
             </td>
             <td class="p-4 border border-gray-400 text-center">
-                <a href="{{ route('book_loans.show', $book_loan) }}">
+                <a href="{{ route('book_loans.show', $bookLoan) }}">
                     <x-button>
                         Show
                     </x-button>

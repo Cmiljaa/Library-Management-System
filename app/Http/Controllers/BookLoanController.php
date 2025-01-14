@@ -29,12 +29,12 @@ class BookLoanController extends Controller
     
     public function index(Request $request): View
     {
-        return view('book_loans.index', ['book_loans' => $this->bookLoanService->getAllBookLoans($request)]);
+        return view('book_loans.index', ['bookLoans' => $this->bookLoanService->getAllBookLoans($request)]);
     }
 
     public function show(BookLoan $bookLoan): View
     {
-        return view('book_loans.show', ['book_loan' => $bookLoan, 'notification' => $this->notificationService->getNotification($bookLoan->id, $bookLoan->user)]);
+        return view('book_loans.show', ['bookLoan' => $bookLoan, 'notification' => $this->notificationService->getNotification($bookLoan->id, $bookLoan->user)]);
     }
 
     public function create(Request $request): View
@@ -57,7 +57,7 @@ class BookLoanController extends Controller
 
     public function edit(BookLoan $bookLoan): View
     {
-        return view('book_loans.edit', ['book_loan' => $bookLoan]);
+        return view('book_loans.edit', ['bookLoan' => $bookLoan]);
     }
 
     public function update(BookLoanRequest $request, BookLoan $bookLoan): RedirectResponse

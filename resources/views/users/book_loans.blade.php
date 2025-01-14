@@ -14,21 +14,21 @@
     </div>
 </x-role-access>
 
-<x-table :fields="['book', 'borrow date', 'return date', 'status', 'show']" :pagination="$book_loans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
-    @forelse ($book_loans as $book_loan)
+<x-table :fields="['book', 'borrow date', 'return date', 'status', 'show']" :pagination="$bookLoans" :action="route('book_loans.index')" :sortOptions="config('sort.book_loan')">
+    @forelse ($bookLoans as $bookLoan)
         <tr class="bg-white hover:bg-gray-100">
-            <td class="p-4 border border-gray-400 hover:underline"> <a href="{{ route('books.show', $book_loan->book_id) }}" class=""> {{ $book_loan->book->title }}</a></td>
-            <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($book_loan->borrow_date)->format('jS F, Y') ?? '' }}</td>
+            <td class="p-4 border border-gray-400 hover:underline"> <a href="{{ route('books.show', $bookLoan->book_id) }}" class=""> {{ $bookLoan->book->title }}</a></td>
+            <td class="p-4 border border-gray-400">{{ Carbon\Carbon::parse($bookLoan->borrow_date)->format('jS F, Y') ?? '' }}</td>
             <td class="p-4 border border-gray-400">
-                {{ $book_loan->return_date ? Carbon\Carbon::parse($book_loan->return_date)->format('jS F, Y') : ''}}
+                {{ $bookLoan->return_date ? Carbon\Carbon::parse($bookLoan->return_date)->format('jS F, Y') : ''}}
             </td>
             <td class="p-4 border border-gray-400">
-                <span class="{{ $book_loan->status === 'overdue' ? 'text-red-600' : ($book_loan->status === 'borrowed' ? 'text-blue-600' : '') }}">
-                    {{ Str::ucfirst($book_loan->status) }}
+                <span class="{{ $bookLoan->status === 'overdue' ? 'text-red-600' : ($bookLoan->status === 'borrowed' ? 'text-blue-600' : '') }}">
+                    {{ Str::ucfirst($bookLoan->status) }}
                 </span>
             </td>
             <td class="p-4 border border-gray-400 text-center">
-                <a href="{{ route('book_loans.show', $book_loan) }}">
+                <a href="{{ route('book_loans.show', $bookLoan) }}">
                     <x-button>
                         Show
                     </x-button>
