@@ -27,6 +27,11 @@ class User extends Authenticatable
         return $this->hasMany(BookLoan::class);
     }
 
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

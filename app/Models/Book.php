@@ -26,6 +26,11 @@ class Book extends Model
         return $this->hasMany(BookLoan::class);
     }
 
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     public function scopeFilterBySearch($query, Request $request)
     {
         if($request->filled('search'))
