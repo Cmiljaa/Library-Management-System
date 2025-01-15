@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Traits\Filterable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
@@ -26,10 +27,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(BookLoan::class);
     }
-
-    public function favorites(): HasMany
+    
+    public function favoriteBooks(): BelongsToMany
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(Book::class, 'favorites');
     }
 
     /**

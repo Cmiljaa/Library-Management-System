@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\BookLoanController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SettingController;
@@ -88,3 +89,6 @@ Route::prefix('/legal')->name('legal.')->group(function(){
 
 Route::resource('books', BookController::class)
 ->only(['index', 'show']);
+
+Route::post('/favorite/{book}', [FavoriteController::class, 'toggleFavorite'])
+->name('users.toggle_favorite');

@@ -6,6 +6,7 @@ use App\Traits\Filterable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,9 @@ class Book extends Model
         return $this->hasMany(BookLoan::class);
     }
 
-    public function favorites(): HasMany
+    public function favoritedBy(): BelongsToMany
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(User::class, 'favorites');
     }
 
     public function scopeFilterBySearch($query, Request $request)
