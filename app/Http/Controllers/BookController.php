@@ -4,21 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
+use App\Models\Favorite;
 use App\Services\BookService;
+use App\Services\FavoriteService;
 use App\Services\ReviewService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class BookController extends Controller
 {
     protected BookService $bookService;
     protected ReviewService $reviewService;
+    protected FavoriteService $favoriteService;
 
-    public function __construct(BookService $bookService, ReviewService $reviewService)
+    public function __construct(BookService $bookService, ReviewService $reviewService, FavoriteService $favoriteService)
     {
         $this->bookService = $bookService;
         $this->reviewService = $reviewService;
+        $this->favoriteService = $favoriteService;
     }
 
     public function index(Request $request): View
@@ -39,7 +44,11 @@ class BookController extends Controller
 
     public function show(Book $book): View
     {
-        return view('books.show', ['book' => $book, 'reviews' => $this->reviewService->getBookReviews($book)]);
+        return view('books.show', [
+            'book' => $book,
+            'favorite' => $this->favoriteService->getFavorite($book),
+            'reviews' => $this->reviewService->getBookReviews($book)
+        ]);
     }
 
     public function edit(Book $book): View
