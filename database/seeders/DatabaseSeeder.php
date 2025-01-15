@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Book;
 use App\Models\BookLoan;
+use App\Models\Favorite;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -34,5 +35,7 @@ class DatabaseSeeder extends Seeder
         });
 
         BookLoan::factory()->count(200)->create();
+
+        Favorite::factory()->count(500)->create();
     }
 }

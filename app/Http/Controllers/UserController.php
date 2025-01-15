@@ -24,17 +24,9 @@ class UserController extends Controller
 
     public function index(Request $request): View
     {
-        return view('users.index', ['users' => $this->userService->getUsersByRoles($request, Auth::user()->role === 'admin' ? ['member', 'librarian'] : ['member'])]);
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
+        return view('users.index', [
+            'users' => $this->userService->getUsersByRoles($request,Auth::user()->role === 'admin' ? ['member', 'librarian'] : ['member'])
+        ]);
     }
 
     public function show(User $user): View

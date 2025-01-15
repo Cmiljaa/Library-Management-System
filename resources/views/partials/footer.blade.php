@@ -29,7 +29,7 @@
         <div class="border-t border-gray-700 my-6"></div>
 
         <div class="flex flex-col md:flex-row justify-between items-center">
-            <span class="text-center">© 2025 All Rights Reserved by Cmiljaaa</span>
+            <span class="text-center">© 2025 All Rights Reserved</span>
             <div class="flex space-x-4 mt-4 md:mt-0">
                 <a href="https://github.com/Cmiljaa/Library-Management-System" target="_blank" class="text-black hover:text-gray-600">
                     <i class="fab fa-github fa-2x"></i>

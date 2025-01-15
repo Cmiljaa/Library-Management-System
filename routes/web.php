@@ -82,9 +82,9 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::prefix('/legal')->name('legal.')->group(function(){
-    Route::view('privacy_policy', 'legal.privacy_policy')->name('privacy_policy');
+    Route::view('privacy_policy', 'legal.privacy-policy')->name('privacy_policy');
 
-    Route::view('terms_and_conditions', 'legal.terms_and_conditions')->name('terms_and_conditions');
+    Route::view('terms_and_conditions', 'legal.terms-and-conditions')->name('terms_and_conditions');
 });
 
 Route::resource('books', BookController::class)
