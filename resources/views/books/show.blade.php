@@ -5,12 +5,26 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">{{ $book->title }}</h1>
         </div>
-        <p class="text-base text-gray-500 mt-2 italic">{{ $book->author }}</p>
+        <div class="flex justify-between">
+            <p class="text-base text-gray-500 mt-2 italic">{{ $book->author }}</p>
+            @auth
+                <div class="flex flex-col items-center sm:-mt-3">
+                    <form action="{{ route('users.toggle_favorite', $book->id) }}" method="POST">
+                        @csrf
+                        <button class="text-5xl" onclick="this.form.submit()">
+                            <span name="favorite" class="{{ $favorite === null ? 'text-gray-400' : 'text-yellow-400' }}">
+                                {{ $favorite === null ? '☆' : '★' }}
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            @endauth
+        </div>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div>
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Description</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Description</h2> 
             <p class="text-gray-700 leading-relaxed">{{ $book->description ?? 'No description provided.' }}</p>
         </div>
 
