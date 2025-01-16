@@ -7,6 +7,6 @@ return [
     'reviews_count, asc' => 'Reviews (Lower to Higher)',
     'availability, desc' => 'Available',
     'availability, asc' => 'Unavailable',
-    'created_at, desc' => 'Newest to Oldest',
-    'created_at, asc' => 'Oldest to Newest',
+    'created_at, desc' => 'Oldest to Newest',
+    'created_at, asc' => 'Newest to Oldest',
 ];

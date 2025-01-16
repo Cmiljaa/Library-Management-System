@@ -6,7 +6,7 @@ trait Sortable
 {
     public function scopeApplySorting($query, $sort, array $allowedColumns)
     {
-        $sort = $sort ?? 'created_at, asc';
+        $sort = $sort ?? 'created_at, desc';
 
         if(in_array($sort, array_keys($allowedColumns)))
         {

@@ -22,11 +22,11 @@ Route::middleware('guest')->prefix('/auth')->group(function(){
 
     Route::controller(AuthController::class)->group(function(){
 
-        Route::get('/login', 'loginForm')->name('auth.login');
+        Route::view('/login', 'auth.login')->name('auth.login');
     
         Route::post('/login', 'login')->name('login');
         
-        Route::get('/register', 'registerForm')->name('auth.register');
+        Route::view('/register', 'auth.register')->name('auth.register');
     
         Route::post('/register', 'register')->name('register');
     });

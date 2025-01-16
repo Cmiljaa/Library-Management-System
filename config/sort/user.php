@@ -9,6 +9,6 @@ return [
     'email, desc' => 'Email (Z to A)',
     'role, asc' => 'Role (A to Z)',
     'role, desc' => 'Role (Z to A)',
-    'created_at, asc' => 'Newest to Oldest',
-    'created_at, desc' => 'Oldest to Newest',
+    'created_at, asc' => 'Oldest to Newest',
+    'created_at, desc' => 'Newest to Oldest',
 ];

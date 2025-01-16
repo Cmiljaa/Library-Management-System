@@ -17,10 +17,9 @@ class CheckBookLoan extends Command
     public function __construct(protected readonly SettingService $settingService)
     {
         parent::__construct();
-        $this->settingService = $settingService;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $bookLoans = BookLoan::whereNull('return_date')->with(['book:id,title'])->get();
 
@@ -50,7 +49,7 @@ class CheckBookLoan extends Command
         }
     }
 
-    private function updateExistingNotification($existingNotification, $borrowDate)
+    private function updateExistingNotification($existingNotification, $borrowDate): void
     {
         $fee = $this->calculateFee($borrowDate); 
 
@@ -61,7 +60,7 @@ class CheckBookLoan extends Command
         ]);
     }
 
-    private function createNotification($bookLoan, $borrowDate)
+    private function createNotification($bookLoan, $borrowDate): void
     {
         $fee = $this->calculateFee($borrowDate); 
         $bookLoan->user->notify(new OverdueBookNotification($bookLoan->id, $fee, $bookLoan->book->title, Carbon::parse($bookLoan->borrow_date)));
