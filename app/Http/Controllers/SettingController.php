@@ -10,12 +10,7 @@ use Illuminate\View\View;
 
 class SettingController extends Controller
 {
-    protected SettingService $settingService;
-
-    public function __construct(SettingService $settingService)
-    {
-        $this->settingService = $settingService;
-    }
+    public function __construct(protected readonly SettingService $settingService) {}
 
     public function index(): View
     {

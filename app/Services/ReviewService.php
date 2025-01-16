@@ -10,7 +10,7 @@ class ReviewService
 {
     public function getBookReviews(Book $book)
     {
-        return $book->reviews()->with('user')->latest()->get();
+        return $book->reviews()->latest()->get();
     }
 
     public function createReview(array $credentials): void

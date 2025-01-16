@@ -10,30 +10,17 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    protected UserService $userService;
-
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
-    }
-
     public function redirectToGoogle(): RedirectResponse
     {
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback(): RedirectResponse
+    public function handleGoogleCallback(UserService $userService): RedirectResponse
     {
         try
         {
-            if($this->userService->handleGoogleCallback())
-            {
-                return redirect(route('books.index'))->with('success', 'You have successfully logged in');
-            }
-            else
-            {
-                return redirect(route('books.index'))->with('success', 'Account created successfully');
-            }
+            $message = $userService->handleGoogleCallback() ? 'You have successfully logged in' : 'Account created successfully';
+            return redirect(route('books.index'))->with('success', $message);
         }
         catch (Exception $e)
         {

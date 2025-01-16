@@ -8,12 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
-    protected $favoriteService;
-
-    public function __construct(FavoriteService $favoriteService)
-    {
-        $this->favoriteService = $favoriteService;
-    }
+    public function __construct(protected readonly FavoriteService $favoriteService) {}
 
     public function toggleFavorite(Book $book)
     {

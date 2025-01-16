@@ -14,9 +14,7 @@ class CheckBookLoan extends Command
 
     protected $description = 'Check if a book loan is overdue and take some actions';
 
-    protected $settingService;
-
-    public function __construct(SettingService $settingService)
+    public function __construct(protected readonly SettingService $settingService)
     {
         parent::__construct();
         $this->settingService = $settingService;

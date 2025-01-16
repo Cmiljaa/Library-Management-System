@@ -11,22 +11,7 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    protected UserService $userService;
-
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
-    }
-
-    public function loginForm(): View
-    {
-        return view('auth.login');
-    }
-
-    public function registerForm(): View
-    {
-        return view('auth.register');
-    }
+    public function __construct(protected readonly UserService $userService) {}
 
     public function login(LoginRequest $request): RedirectResponse
     {

@@ -10,12 +10,7 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    protected ReviewService $reviewService;
-
-    public function __construct(ReviewService $reviewService)
-    {
-        $this->reviewService = $reviewService;        
-    }
+    public function __construct(protected readonly ReviewService $reviewService) {}
 
     public function store(ReviewRequest $request): RedirectResponse
     {

@@ -13,14 +13,7 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    protected UserService $userService;
-    protected BookLoanService $bookLoanService;
-
-    public function __construct(UserService $userService, BookLoanService $bookLoanService)
-    {
-        $this->userService = $userService;
-        $this->bookLoanService = $bookLoanService;
-    }
+    public function __construct(protected readonly UserService $userService) {}
 
     public function index(Request $request): View
     {
@@ -53,8 +46,8 @@ class UserController extends Controller
         return redirect(route('books.index'))->with('success', 'Profile deleted successfully');
     }
 
-    public function userBookLoans(User $user): View
+    public function userBookLoans(User $user, BookLoanService $bookLoanService): View
     {
-        return view('users.book_loans', ['bookLoans' => $this->bookLoanService->getUserBooks($user), 'user' => $user]);
+        return view('users.book_loans', ['bookLoans' => $bookLoanService->getUserBooks($user), 'user' => $user]);
     }
 }

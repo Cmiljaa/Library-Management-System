@@ -15,16 +15,7 @@ use Illuminate\View\View;
 
 class BookController extends Controller
 {
-    protected BookService $bookService;
-    protected ReviewService $reviewService;
-    protected FavoriteService $favoriteService;
-
-    public function __construct(BookService $bookService, ReviewService $reviewService, FavoriteService $favoriteService)
-    {
-        $this->bookService = $bookService;
-        $this->reviewService = $reviewService;
-        $this->favoriteService = $favoriteService;
-    }
+    public function __construct(protected readonly BookService $bookService) {}
 
     public function index(Request $request): View
     {
@@ -42,12 +33,12 @@ class BookController extends Controller
         ->with('success', 'Book created successfully');
     }
 
-    public function show(Book $book): View
+    public function show(Book $book, ReviewService $reviewService, FavoriteService $favoriteService): View
     {
         return view('books.show', [
             'book' => $book,
-            'favorite' => $this->favoriteService->getFavorite($book),
-            'reviews' => $this->reviewService->getBookReviews($book)
+            'favorite' => $favoriteService->getFavorite($book),
+            'reviews' => $reviewService->getBookReviews($book)
         ]);
     }
 

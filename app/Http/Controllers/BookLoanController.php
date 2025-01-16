@@ -14,32 +14,21 @@ use Illuminate\View\View;
 
 class BookLoanController extends Controller
 {
-    protected BookLoanService $bookLoanService;
-    protected BookService $bookService;
-    protected UserService $userService;
-    protected NotificationService $notificationService;
-
-    public function __construct(BookLoanService $bookLoanService, BookService $bookService, UserService $userService, NotificationService $notificationService)
-    {
-        $this->bookLoanService = $bookLoanService;
-        $this->bookService = $bookService;
-        $this->userService = $userService;
-        $this->notificationService = $notificationService;
-    }
+    public function __construct(protected readonly BookLoanService $bookLoanService) {}
     
     public function index(Request $request): View
     {
         return view('book_loans.index', ['bookLoans' => $this->bookLoanService->getAllBookLoans($request)]);
     }
 
-    public function show(BookLoan $bookLoan): View
+    public function show(BookLoan $bookLoan, NotificationService $notificationService): View
     {
-        return view('book_loans.show', ['bookLoan' => $bookLoan, 'notification' => $this->notificationService->getNotification($bookLoan->id, $bookLoan->user)]);
+        return view('book_loans.show', ['bookLoan' => $bookLoan, 'notification' => $notificationService->getNotification($bookLoan->id, $bookLoan->user)]);
     }
 
-    public function create(Request $request): View
+    public function create(Request $request, BookService $bookService, UserService $userService): View
     {
-        return view('book_loans.create', ['users' => $this->userService->getUsersByRoles($request), 'books' => $this->bookService->getAllBooks($request)]);
+        return view('book_loans.create', ['users' => $userService->getUsersByRoles($request), 'books' => $bookService->getAllBooks($request)]);
     }
 
     public function store(BookLoanRequest $request): RedirectResponse

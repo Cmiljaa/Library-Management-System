@@ -11,21 +11,14 @@ use Illuminate\View\View;
 
 class NotificationController extends Controller
 {
-    protected NotificationService $notificationService;
-
-    public function __construct(NotificationService $notificationService)
-    {
-        $this->notificationService = $notificationService;
-    }
-
     public function index(): View
     {
         return view('users.notifications', ['notifications' => Auth::user()->notifications]);
     }
 
-    public function destroy(DatabaseNotification $notification): RedirectResponse
+    public function destroy(DatabaseNotification $notification, NotificationService $notificationService): RedirectResponse
     {
-        $this->notificationService->deleteNotification($notification);
+        $notificationService->deleteNotification($notification);
         return redirect()->back()->with('success', 'Overdue fee successfully paid');
     }
 }
