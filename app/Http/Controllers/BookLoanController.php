@@ -15,7 +15,7 @@ use Illuminate\View\View;
 class BookLoanController extends Controller
 {
     public function __construct(protected readonly BookLoanService $bookLoanService) {}
-    
+
     public function index(Request $request): View
     {
         return view('book_loans.index', ['bookLoans' => $this->bookLoanService->getAllBookLoans($request)]);
@@ -31,15 +31,12 @@ class BookLoanController extends Controller
         return view('book_loans.create', ['users' => $userService->getUsersByRoles($request), 'books' => $bookService->getAllBooks($request)]);
     }
 
-    public function store(BookLoanRequest $request): RedirectResponse
+    public function store(BookLoanRequest $request, BookService $bookService): RedirectResponse
     {
-        try
-        {
-            $this->bookLoanService->createBookLoan($request->validated());
+        try {
+            $this->bookLoanService->createBookLoan($request->validated(), $bookService);
             return redirect(route('book_loans.index'))->with('success', 'Book loan added successfully');
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -51,13 +48,10 @@ class BookLoanController extends Controller
 
     public function update(BookLoanRequest $request, BookLoan $bookLoan): RedirectResponse
     {
-        try
-        {
+        try {
             $this->bookLoanService->updateBookLoan($request->validated(), $bookLoan);
             return redirect(route('book_loans.index'))->with('success', 'Book loan updated successfully');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
