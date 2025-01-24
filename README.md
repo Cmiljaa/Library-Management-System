@@ -154,7 +154,9 @@
 5. **Run Migrations and Seed Data**
 
     ```bash
-    php artisan migrate:refresh --seed
+    php artisan migrate
+    php artisan db:seed
+
     ```
 
 6. **Start the Development Server**
