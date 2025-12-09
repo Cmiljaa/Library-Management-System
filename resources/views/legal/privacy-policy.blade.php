@@ -54,7 +54,7 @@
     <h2 class="text-xl font-bold mb-2">Contact Us</h2>
     <p class="mb-8">
         If you have any questions or concerns about this privacy policy or our data practices, please contact us at
-        <a href="mailto:dsmiljanic40@gmail.com" class="text-blue-600 underline">dsmiljanic40@gmail.com</a>.
+        <a href="mailto:contact@dsmiljanic.com" class="text-blue-600 underline">contact@dsmiljanic.com</a>.
     </p>
 </div>
 
