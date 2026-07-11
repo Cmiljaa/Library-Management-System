@@ -14,7 +14,7 @@ class BookLoan extends Model
     /** @use HasFactory<\Database\Factories\BookLoanFactory> */
     use HasFactory, Sortable, Filterable;
 
-    protected $fillable = ['user_id', 'book_id', 'status', 'borrow_date', 'return_date', 'status'];
+    protected $fillable = ['user_id', 'book_id', 'status', 'borrow_date', 'return_date'];
 
     public function user(): BelongsTo
     {
