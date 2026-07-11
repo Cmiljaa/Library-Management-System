@@ -12,7 +12,7 @@ class FavoriteController extends Controller
 
     public function toggleFavorite(Book $book)
     {
-        $this->favoriteService->toogleFavorite($book);
+        $this->favoriteService->toggleFavorite($book);
 
         return redirect(route('books.show', $book));
     }
