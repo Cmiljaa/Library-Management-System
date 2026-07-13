@@ -27,7 +27,7 @@
         @yield('content')
     </div>
     @include('partials.footer')
-    @include('partials.nofitications')
+    @include('partials.notifications')
     @include('partials.spinner')
 </body>
     <script src="https://kit.fontawesome.com/6684d31a4d.js" crossorigin="anonymous"></script>

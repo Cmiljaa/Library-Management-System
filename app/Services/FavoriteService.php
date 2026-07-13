@@ -13,7 +13,7 @@ class FavoriteService
         return Auth::check() ? $book->favoritedBy()->where('user_id', Auth::user()->id)->first() : null;
     }
 
-    public function toogleFavorite(Book $book): void
+    public function toggleFavorite(Book $book): void
     {
         if (Auth::user()->favoriteBooks()->where('book_id', $book->id)->exists())
         {
