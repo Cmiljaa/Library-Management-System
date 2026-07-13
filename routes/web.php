@@ -77,6 +77,9 @@ Route::middleware('auth')->group(function(){
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::post('/favorite/{book}', [FavoriteController::class, 'toggleFavorite'])
+        ->name('users.toggle_favorite');
+
     Route::resource('notifications', NotificationController::class)
     ->only(['index', 'destroy']);
 });
@@ -89,6 +92,3 @@ Route::prefix('/legal')->name('legal.')->group(function(){
 
 Route::resource('books', BookController::class)
 ->only(['index', 'show']);
-
-Route::post('/favorite/{book}', [FavoriteController::class, 'toggleFavorite'])
-->name('users.toggle_favorite');
