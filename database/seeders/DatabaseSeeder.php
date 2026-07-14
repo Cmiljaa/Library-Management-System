@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $users = User::factory()->count(300)->create();
 
         Book::factory()->count(1000)->create()->each(function($book) use ($users) {
-            $shuffledUsers = $users->shuffle($users)->take(rand(1, 4));
+            $shuffledUsers = $users->shuffle()->take(rand(1, 4));
 
             $shuffledUsers->each(function ($user) use ($book) {
                 Review::factory()->create([
