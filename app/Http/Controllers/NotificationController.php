@@ -18,6 +18,8 @@ class NotificationController extends Controller
 
     public function destroy(DatabaseNotification $notification, NotificationService $notificationService): RedirectResponse
     {
+        abort_unless($notification->notifiable_id === Auth::id(), 403);
+
         $notificationService->deleteNotification($notification);
         return redirect()->back()->with('success', 'Overdue fee successfully paid');
     }
