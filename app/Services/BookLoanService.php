@@ -30,22 +30,35 @@ class BookLoanService
 
         if (!$book->availability) {
             throw new \Exception("Book is not available");
-        } elseif ($this->getUserBooks($user)->total() >= $this->settingService->getSettingValue('max_books')) {
+        } elseif ($this->activeLoansCount($user) >= $this->settingService->getSettingValue('max_books')) {
             throw new \Exception("User already has  {$this->settingService->getSettingValue('max_books')} book loans");
         } else {
             $bookService->changeAvailability($book);
-            BookLoan::create($credentials);
+            BookLoan::create([
+                ...$credentials,
+                'borrow_date' => now()->toDateString(),
+            ]);
         }
     }
 
     public function updateBookLoan(array $credentials, BookLoan $bookLoan): void
     {
-        $this->checkUserOverdueFees(User::findOrFail($credentials['user_id']));
+        $userId = $credentials['user_id'] ?? $bookLoan->user_id;
+        $user = User::findOrFail($userId);
+        $this->checkUserOverdueFees($user);
+
+        $oldReturnDate = $bookLoan->return_date;
 
         $bookLoan->update($credentials);
-
         $bookLoan->status = $this->updateBookLoanStatus($bookLoan);
-        $bookLoan->save();
+
+        if (is_null($oldReturnDate) && $bookLoan->return_date !== null) {
+            $bookLoan->book->update(['availability' => true]);
+        }
+
+        if ($bookLoan->isDirty('status')) {
+            $bookLoan->save();
+        }
     }
 
     public function getUserBooks(User $user)
@@ -62,6 +75,11 @@ class BookLoanService
         } else {
             return 'returned';
         }
+    }
+
+    private function activeLoansCount(User $user): int
+    {
+        return $user->book_loans()->whereNull('return_date')->count();
     }
 
     private function checkUserOverdueFees(User $user): void
